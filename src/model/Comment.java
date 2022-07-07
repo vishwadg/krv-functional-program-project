@@ -3,12 +3,12 @@ package model;
 import java.time.LocalDate;
 
 public class Comment {
-    public String content;
-    public LocalDate localDate;
+    private String content;
+    private LocalDate localDate;
 
-    public Product product;
-    public User user;
-    public LocalDate createdAt;
+    private Product product;
+    private User user;
+    private LocalDate createdAt;
 
     public LocalDate getCreatedAt() {
         return createdAt;

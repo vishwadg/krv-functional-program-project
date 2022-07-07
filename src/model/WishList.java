@@ -3,9 +3,9 @@ package model;
 import java.time.LocalDate;
 
 public class WishList {
-    public Product product;
-    public User user;
-    public LocalDate createdAt;
+    private Product product;
+    private User user;
+    private LocalDate createdAt;
 
     public Product getProduct() {
         return product;
