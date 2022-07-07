@@ -3,10 +3,10 @@ package model;
 import java.time.LocalDate;
 
 public class Bids {
-    public double bidValue;
-    public User user;
-    public Product product;
-    public LocalDate createdAt;
+    private double bidValue;
+    private User user;
+    private Product product;
+    private LocalDate createdAt;
 
     public double getBidValue() {
         return bidValue;

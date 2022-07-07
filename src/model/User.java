@@ -3,16 +3,16 @@ package model;
 import java.util.List;
 
 public class User {
-    public String firstName;
-    public String lastName;
-    public String email;
-    public String country;
-    public String state;
-    public String city;
-    public String zip;
-    public String userLat;
-    public String userLong;
-    public List<Comment> commentList;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String country;
+    private String state;
+    private String city;
+    private String zip;
+    private String userLat;
+    private String userLong;
+    private List<Comment> commentList;
 
     public String getFirstName() {
         return firstName;

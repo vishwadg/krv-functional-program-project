@@ -4,23 +4,23 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Product {
-    public String name;
-    public String description;
-    public double price;
-    public boolean isNegotiable;
-    public boolean isBiddable;
-    public LocalDate addedDate;
-    public LocalDate expiryDate;
-    public ProductStatus productStatus;
-    public Integer views;
-    public double latitude;
-    public double longitude;
-    public Category category;
-    public List<Image> imageList;
-    public List<User> bidders;
-    public List<User> wishers;
-    public List<User> commentars;
-    public User user;
+    private String name;
+    private String description;
+    private double price;
+    private boolean isNegotiable;
+    private boolean isBiddable;
+    private LocalDate addedDate;
+    private LocalDate expiryDate;
+    private ProductStatus productStatus;
+    private Integer views;
+    private double latitude;
+    private double longitude;
+    private Category category;
+    private List<Image> imageList;
+    private List<User> bidders;
+    private List<User> wishers;
+    private List<User> commentars;
+    private User user;
 
     public String getName() {
         return name;
