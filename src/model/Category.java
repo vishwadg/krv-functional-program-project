@@ -6,7 +6,7 @@ public class Category {
     private int id;
     private String name;
     private String description;
-    private List<Product> productList;
+    private List<Product> products;
 
     public int getId() {
         return id;
@@ -32,11 +32,11 @@ public class Category {
         this.description = description;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

@@ -6,7 +6,7 @@ public class Marketplace {
     private String name;
     private String address;
     private String registrationId;
-    private List<Product> productList;
+    private List<Product> products;
 
     public String getName() {
         return name;
@@ -32,11 +32,11 @@ public class Marketplace {
         this.registrationId = registrationId;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

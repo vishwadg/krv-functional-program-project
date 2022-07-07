@@ -16,10 +16,10 @@ public class Product {
     private double latitude;
     private double longitude;
     private Category category;
-    private List<Image> imageList;
+    private List<Image> images;
     private List<User> bidders;
     private List<User> wishers;
-    private List<User> commentars;
+    private List<User> commenters;
     private User user;
 
     public String getName() {
@@ -110,12 +110,12 @@ public class Product {
         this.longitude = longitude;
     }
 
-    public List<Image> getImageList() {
-        return imageList;
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImageList(List<Image> imageList) {
-        this.imageList = imageList;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public Category getCategory() {
@@ -142,12 +142,12 @@ public class Product {
         this.wishers = wishers;
     }
 
-    public List<User> getCommentars() {
-        return commentars;
+    public List<User> getCommenters() {
+        return commenters;
     }
 
-    public void setCommentars(List<User> commentars) {
-        this.commentars = commentars;
+    public void setCommenters(List<User> commenters) {
+        this.commenters = commenters;
     }
 
     public User getUser() {

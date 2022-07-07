@@ -12,7 +12,7 @@ public class User {
     private String zip;
     private String userLat;
     private String userLong;
-    private List<Comment> commentList;
+    private List<Comment> comments;
 
     public String getFirstName() {
         return firstName;
@@ -86,11 +86,11 @@ public class User {
         this.userLong = userLong;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

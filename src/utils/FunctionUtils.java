@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 public class FunctionUtils {
     static TriFunction<Marketplace,Long,Integer, Optional<List<User>>> d=(marketplace,k,year)->
-         Stream.of(marketplace).flatMap(m->m);
+         Stream.of(marketplace).flatMap(m->m.getProducts().stream())
+                 .flatMap(p->p.getCommenters().stream())
+                 .flatMap();
     ;
 }
