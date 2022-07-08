@@ -18,18 +18,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class FunctionUtilsTest {
 
     private Marketplace marketplace;
+    private User user1,user2,user3,user4,user5,user6;
 
 
     @BeforeEach
     void setUp() {
         marketplace = new Marketplace("KRV MarketPlace", "Fairfield", "12345");
 
-        User user1 = new User(1l, "Jhon", "Doe", "jhondoe@gmail.com", "USA", "IA", "Fairfield1", 52557, 32.123, 12.098);
-        User user2 = new User(2L, "Johnny", "Depp", "johnnydepp@gmail.com", "USA", "LA", "Fairfield2", 52558, 32.345, 12.089);
-        User user3 = new User(3L, "Amber", "Heard", "amberheard@gmail.com", "USA", "CA", "Fairfield3", 52559, 32.654, 12.183);
-        User user4 = new User(4L, "Jimmy", "Fallon", "jimmy@gmail.com", "USA", "TX", "Fairfield4", 52550, 32.543, 12.103);
-        User user5 = new User(5L, "Balie", "Haddin", "balie@gmail.com", "USA", "NY", "Fairfield5", 52552, 32.189, 12.143);
-        User user6 = new User(6L, "Roy", "Heard", "roy@gmail.com", "USA", "NJ", "Fairfield6", 52553, 32.187, 12.093);
+         user1 = new User(1l, "Jhon", "Doe", "jhondoe@gmail.com", "USA", "IA", "Fairfield1", 52557, 32.123, 12.098);
+         user2 = new User(2L, "Johnny", "Depp", "johnnydepp@gmail.com", "USA", "LA", "Fairfield2", 52558, 32.345, 12.089);
+         user3 = new User(3L, "Amber", "Heard", "amberheard@gmail.com", "USA", "CA", "Fairfield3", 52559, 32.654, 12.183);
+         user4 = new User(4L, "Jimmy", "Fallon", "jimmy@gmail.com", "USA", "TX", "Fairfield4", 52550, 32.543, 12.103);
+         user5 = new User(5L, "Balie", "Haddin", "balie@gmail.com", "USA", "NY", "Fairfield5", 52552, 32.189, 12.143);
+         user6 = new User(6L, "Roy", "Heard", "roy@gmail.com", "USA", "NJ", "Fairfield6", 52553, 32.187, 12.093);
 
 
         Image image1 = new Image("product1/path1/image1.jpg");
@@ -148,6 +149,14 @@ class FunctionUtilsTest {
         assertEquals(2, product.map(List::size).orElse(0));
     }
 
+    //14. Top K users who uploaded negotiable product with highest comments
+    @Test
+    public void test__usersWithHighestComments(){
+        Map<User, List<Comment>> data = FunctionUtils.usersWithHighestComments.apply(marketplace, 2022);
+        assertEquals(data.get(user2),user2.getComments());
+        assertEquals(data.get(user3).size(),user3.getComments().size());
+
+    }
     @Test
     public void test3_productsWithHighestBids(){
         Map<Product, Optional<Bid>> d=FunctionUtils.productsWithHighestBids.apply(marketplace,2022);
