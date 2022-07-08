@@ -50,7 +50,7 @@ public class FunctionUtils {
 
 
 
-    static BiFunction<Marketplace,Integer, Map<Product, Bid>> productsWithHighestBids=(marketplace, year)->
+    public static BiFunction<Marketplace,Integer, Map<Product, Bid>> productsWithHighestBids=(marketplace, year)->
             Stream.of(marketplace)
                     .flatMap(m->m.getProducts().stream())
                     .map(p->getHighestBid.apply(p, year))
