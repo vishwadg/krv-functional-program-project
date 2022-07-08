@@ -14,6 +14,23 @@ public class User {
     private String userLong;
     private List<Comment> comments;
 
+    public User() {
+    }
+
+    public User(String firstName, String lastName, String email, String country, String state, String city, String zip,
+                String userLat, String userLong, List<Comment> comments) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.zip = zip;
+        this.userLat = userLat;
+        this.userLong = userLong;
+        this.comments = comments;
+    }
+
     public String getFirstName() {
         return firstName;
     }

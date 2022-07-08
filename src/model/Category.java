@@ -8,6 +8,16 @@ public class Category {
     private String description;
     private List<Product> products;
 
+    public Category(int id, String name, String description, List<Product> products) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.products = products;
+    }
+
+    public Category() {
+    }
+
     public int getId() {
         return id;
     }

@@ -10,6 +10,17 @@ public class Comment {
     private User user;
     private LocalDate createdAt;
 
+    public Comment() {
+    }
+
+    public Comment(String content, LocalDate localDate, Product product, User user, LocalDate createdAt) {
+        this.content = content;
+        this.localDate = localDate;
+        this.product = product;
+        this.user = user;
+        this.createdAt = createdAt;
+    }
+
     public LocalDate getCreatedAt() {
         return createdAt;
     }

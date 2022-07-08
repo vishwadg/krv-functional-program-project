@@ -25,7 +25,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String description, double price, boolean isNegotiable, boolean isBiddable, LocalDate addedDate, LocalDate expiryDate, ProductStatus productStatus, Integer views, double latitude, double longitude, Category category, List<Image> images, List<Bid> bids, List<WishList> wishLists, List<Comment> comments, User user) {
+    public Product(String name, String description, double price, boolean isNegotiable, boolean isBiddable,
+                   LocalDate addedDate, LocalDate expiryDate, ProductStatus productStatus, Integer views, double latitude,
+                   double longitude, Category category, List<Image> images, List<Bid> bids, List<WishList> wishLists,
+                   List<Comment> comments, User user) {
         this.name = name;
         this.description = description;
         this.price = price;

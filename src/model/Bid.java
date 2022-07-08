@@ -8,6 +8,16 @@ public class Bid {
     private Product product;
     private LocalDate createdAt;
 
+    public Bid() {
+    }
+
+    public Bid(double bidValue, User user, Product product, LocalDate createdAt) {
+        this.bidValue = bidValue;
+        this.user = user;
+        this.product = product;
+        this.createdAt = createdAt;
+    }
+
     public double getBidValue() {
         return bidValue;
     }

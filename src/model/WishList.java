@@ -7,6 +7,15 @@ public class WishList {
     private User user;
     private LocalDate createdAt;
 
+    public WishList() {
+    }
+
+    public WishList(Product product, User user, LocalDate createdAt) {
+        this.product = product;
+        this.user = user;
+        this.createdAt = createdAt;
+    }
+
     public Product getProduct() {
         return product;
     }
