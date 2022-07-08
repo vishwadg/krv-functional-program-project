@@ -62,4 +62,15 @@ public class FunctionUtils {
 
     //    =====================================================================================================
 
+
+    //    4.Most top K expensive biddable product added
+    public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getKTopExpensiveBiddableProduct = (market, k, year) ->
+            Optional.of(Stream.of(market)
+                    .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
+                    .filter(p -> p.getAddedDate().getYear() == year)
+                    .filter(p -> p.isBiddable()).toList()
+                    .stream().sorted((p1, p2) -> (int) (p2.getPrice() - p1.getPrice()))
+                    .limit(k)
+                    .collect(Collectors.toList())
+            );
 }

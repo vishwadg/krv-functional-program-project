@@ -49,7 +49,7 @@ class FunctionUtilsTest {
         Category category5 = new Category(5L, "Digital Books", "This is digital books");
         Category category6 = new Category(6L, "Handmade", "This is handmade");
 
-        Product product1 = new Product(1L, "Iphone1", "Iphone1 Description ", 1200, true, true, LocalDate.parse("2022-01-01"),
+        Product product1 = new Product(1L, "Iphone1", "Iphone1 Description ", 1200, true, false, LocalDate.parse("2022-01-01"),
                 LocalDate.parse("2022-01-10"), ProductStatus.NEW, 20, 20.123, 23.123, category1, user1);
 
         Product product2 = new Product(2L, "Samsung S20", "Samsung Description ", 600, true, true, LocalDate.parse("2022-05-01"),
@@ -58,7 +58,7 @@ class FunctionUtilsTest {
         Product product3 = new Product(3L, "Leather Jacket", "First Class Leather Jacket Description ", 40, true, true, LocalDate.parse("2022-03-01"),
                 LocalDate.parse("2022-03-20"), ProductStatus.NEW, 50, 20.123, 23.123, category3, user3);
 
-        Product product4 = new Product(4L, "Happiness Unlimited", "Happiness Unlimited Book Description ", 277, true, true, LocalDate.parse("2022-02-01"),
+        Product product4 = new Product(4L, "Happiness Unlimited", "Happiness Unlimited Book Description ", 277, false, true, LocalDate.parse("2022-02-01"),
                 LocalDate.parse("2022-02-10"), ProductStatus.NEW, 870, 32.988, 21.123, category4, user4);
 
         Product product5 = new Product(5L, "UML Basics", "UML Basics Digital Books Description ", 210, true, true, LocalDate.parse("2022-02-15"),
@@ -157,5 +157,16 @@ class FunctionUtilsTest {
         expectedMap.put("Happiness Unlimited", 910.0);
         assertEquals(expectedMap.get("Leather Jacket"), bidMap.entrySet().stream().toList().get(0).getValue().get().getBidValue());
         assertEquals(expectedMap.get("Happiness Unlimited"), bidMap.entrySet().stream().toList().get(1).getValue().get().getBidValue());
+    }
+
+    //    4. Most top K expensive biddable product added to wishlist
+    @Test
+    public void test4_topExpensiveBiddableProduct() {
+        Optional<List<Product>> product = FunctionUtils.getKTopExpensiveBiddableProduct.apply(marketplace, 2, 2022);
+        List<Double> expectedProduct = Arrays.asList(600.0, 277.0);
+        System.out.println(product);
+        assertEquals(expectedProduct.get(0), product.map(products -> products.get(0).getPrice()).orElse(0.0));
+        assertEquals(expectedProduct.get(1), product.map(products -> products.get(1).getPrice()).orElse(0.0));
+        assertEquals(2, product.map(List::size).orElse(0));
     }
 }
