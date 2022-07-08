@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FunctionUtils {
-    //    Top K list of Users with maximum comments (with timeframe)
+    //    1. Top K list of Users with maximum comments
     public static TriFunction<Marketplace, Integer, Integer, Optional<List<User>>> getKTopUserWithMaxComments = (market, k, year) ->
             Optional.of(Stream.of(market)
                     .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
@@ -26,7 +26,7 @@ public class FunctionUtils {
                     .collect(Collectors.toList()));
 
 
-    //    K Product with maximum bids (with timeframe)
+    //  2. K Product with maximum bids
     public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getKProductWithMaximumBids = (market, k, year) ->
             Optional.of(Stream.of(market).flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
                     .flatMap(b -> b.getBids() != null ? b.getBids().stream() : Stream.empty())
@@ -45,16 +45,16 @@ public class FunctionUtils {
     //    3. Each product with highest bids
     static BiFunction<Product, Integer, Optional<Bid>> getHighestBid = (product, year) ->
             Stream.of(product)
-                    .flatMap(p -> p.getBids()!=null?p.getBids().stream():Stream.empty())
-                    .sorted((b1, b2) -> (int) (b2.getBidValue() - b1.getBidValue()))
+                    .flatMap(p -> p.getBids() != null ? p.getBids().stream() : Stream.empty())
+                    .sorted((b1, b2) -> b2.getBidValue() != 0.0 && b1.getBidValue() != 0.0 ? (int) (b2.getBidValue() - b1.getBidValue()) : 0)
                     .findFirst();
 
 
-    public static BiFunction<Marketplace,Integer, Map<Product, Optional<Bid>>> productsWithHighestBids=(marketplace, year)->
-        Stream.of(marketplace)
-                .flatMap(m -> m.getProducts().stream())
-                .collect(Collectors.toMap(product -> product, product -> getHighestBid.apply(product, year)));
-
+    public static BiFunction<Marketplace, Integer, Map<Product, Optional<Bid>>> productsWithHighestBids = (marketplace, year) ->
+            Stream.of(marketplace)
+                    .flatMap(m -> m.getProducts().stream())
+                    .filter(p -> getHighestBid.apply(p, year).isPresent())
+                    .collect(Collectors.toMap(product -> product, product -> getHighestBid.apply(product, year)));
 
 
     //    =====================================================================================================
