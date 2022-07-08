@@ -7,9 +7,8 @@ public class Image {
     public Image() {
     }
 
-    public Image(String path, Product product) {
+    public Image(String path) {
         this.path = path;
-        this.product = product;
     }
 
     public String getPath() {

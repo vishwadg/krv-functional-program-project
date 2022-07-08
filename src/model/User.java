@@ -9,16 +9,16 @@ public class User {
     private String country;
     private String state;
     private String city;
-    private String zip;
-    private String userLat;
-    private String userLong;
+    private Integer zip;
+    private Double userLat;
+    private Double userLong;
     private List<Comment> comments;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String country, String state, String city, String zip,
-                String userLat, String userLong, List<Comment> comments) {
+    public User(String firstName, String lastName, String email, String country, String state, String city, Integer zip,
+                Double userLat, Double userLong) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -28,7 +28,6 @@ public class User {
         this.zip = zip;
         this.userLat = userLat;
         this.userLong = userLong;
-        this.comments = comments;
     }
 
     public String getFirstName() {
@@ -79,27 +78,27 @@ public class User {
         this.city = city;
     }
 
-    public String getZip() {
+    public Integer getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(Integer zip) {
         this.zip = zip;
     }
 
-    public String getUserLat() {
+    public Double getUserLat() {
         return userLat;
     }
 
-    public void setUserLat(String userLat) {
+    public void setUserLat(Double userLat) {
         this.userLat = userLat;
     }
 
-    public String getUserLong() {
+    public Double getUserLong() {
         return userLong;
     }
 
-    public void setUserLong(String userLong) {
+    public void setUserLong(Double userLong) {
         this.userLong = userLong;
     }
 

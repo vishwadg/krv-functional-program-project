@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 public class Comment {
     private String content;
-    private LocalDate localDate;
-
     private Product product;
     private User user;
     private LocalDate createdAt;
@@ -13,9 +11,8 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String content, LocalDate localDate, Product product, User user, LocalDate createdAt) {
+    public Comment(String content, Product product, User user, LocalDate createdAt) {
         this.content = content;
-        this.localDate = localDate;
         this.product = product;
         this.user = user;
         this.createdAt = createdAt;
@@ -53,11 +50,4 @@ public class Comment {
         this.content = content;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
-    }
 }

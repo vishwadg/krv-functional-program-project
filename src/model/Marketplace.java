@@ -11,11 +11,10 @@ public class Marketplace {
     public Marketplace() {
     }
 
-    public Marketplace(String name, String address, String registrationId, List<Product> products) {
+    public Marketplace(String name, String address, String registrationId) {
         this.name = name;
         this.address = address;
         this.registrationId = registrationId;
-        this.products = products;
     }
 
     public String getName() {

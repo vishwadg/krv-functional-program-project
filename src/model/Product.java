@@ -27,8 +27,7 @@ public class Product {
 
     public Product(String name, String description, double price, boolean isNegotiable, boolean isBiddable,
                    LocalDate addedDate, LocalDate expiryDate, ProductStatus productStatus, Integer views, double latitude,
-                   double longitude, Category category, List<Image> images, List<Bid> bids, List<WishList> wishLists,
-                   List<Comment> comments, User user) {
+                   double longitude, Category category, User user) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -41,10 +40,6 @@ public class Product {
         this.latitude = latitude;
         this.longitude = longitude;
         this.category = category;
-        this.images = images;
-        this.bids = bids;
-        this.wishLists = wishLists;
-        this.comments = comments;
         this.user = user;
     }
 
