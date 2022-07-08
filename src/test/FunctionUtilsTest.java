@@ -149,6 +149,8 @@ class FunctionUtilsTest {
 
     @Test
     public void test3_productsWithHighestBids(){
-        Map<Product, Bid> d=FunctionUtils.productsWithHighestBids.apply(marketplace,2022);
+        Map<Product, Optional<Bid>> d=FunctionUtils.productsWithHighestBids.apply(marketplace,2022);
+
+
     }
 }

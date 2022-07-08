@@ -5,6 +5,7 @@ import model.Marketplace;
 import model.Product;
 import model.User;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,19 +46,19 @@ public class FunctionUtils {
 
     //    =====================================================================================================
     //    3. Each product with highest bids
-    static BiFunction<Product, Integer, Bid> getHighestBid = (product, year) ->
+    static BiFunction<Product, Integer, Optional<Bid>> getHighestBid = (product, year) ->
             Stream.of(product)
-                    .flatMap(p -> p.getBids().stream())
-                    .sorted((b1, b2) -> (int) (b1.getBidValue() - b2.getBidValue()))
-                    .findFirst().get();
+                    .flatMap(p -> p.getBids()!=null?p.getBids().stream():Stream.empty())
+                    .sorted((b1, b2) -> (int) (b2.getBidValue() - b1.getBidValue()))
+                    .findFirst();
 
 
-    public static BiFunction<Marketplace,Integer, Map<Product, Bid>> productsWithHighestBids=(marketplace, year)->
+    public static BiFunction<Marketplace,Integer, Map<Product, Optional<Bid>>> productsWithHighestBids=(marketplace, year)->
+        Stream.of(marketplace)
+                .flatMap(m -> m.getProducts().stream())
+                .collect(Collectors.toMap(product -> product, product -> getHighestBid.apply(product, year)));
 
-            Stream.of(marketplace)
-                    .flatMap(m -> m.getProducts().stream())
-                    .map(p -> getHighestBid.apply(p, year))
-                    .collect(Collectors.toMap(Bid::getProduct, Bid::getCurrent));
+
 
     //    =====================================================================================================
 
