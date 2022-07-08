@@ -37,23 +37,27 @@ public class FunctionUtils {
                     .entrySet()
                     .stream()
                     .sorted((p1, p2) -> p1.getKey().getBids() != null && p2.getKey().getBids() != null ?
-                            (int) (p1.getKey().getBids().stream().count() - p2.getKey().getBids().stream().count()) : 0)
+                            (int) (p2.getKey().getBids().stream().count() - p1.getKey().getBids().stream().count()) : 0)
                     .limit(k)
                     .map(p -> p.getKey())
                     .collect(Collectors.toList()));
 
-    static BiFunction<Product,Integer, Bid> getHighestBid=(product, year)->
+
+    //    =====================================================================================================
+    //    3. Each product with highest bids
+    static BiFunction<Product, Integer, Bid> getHighestBid = (product, year) ->
             Stream.of(product)
-                    .flatMap(p->p.getBids().stream())
-                    .sorted((b1,b2)->(int)(b1.getBidValue()- b2.getBidValue()))
+                    .flatMap(p -> p.getBids().stream())
+                    .sorted((b1, b2) -> (int) (b1.getBidValue() - b2.getBidValue()))
                     .findFirst().get();
 
 
-
-    static BiFunction<Marketplace,Integer, Map<Product, Bid>> productsWithHighestBids=(marketplace, year)->
+    static BiFunction<Marketplace, Integer, Map<Product, Bid>> productsWithHighestBids = (marketplace, year) ->
             Stream.of(marketplace)
-                    .flatMap(m->m.getProducts().stream())
-                    .map(p->getHighestBid.apply(p, year))
-                    .collect(Collectors.toMap(Bid::getProduct,Bid::getCurrent));
+                    .flatMap(m -> m.getProducts().stream())
+                    .map(p -> getHighestBid.apply(p, year))
+                    .collect(Collectors.toMap(Bid::getProduct, Bid::getCurrent));
+
+    //    =====================================================================================================
 
 }

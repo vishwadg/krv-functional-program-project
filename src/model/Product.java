@@ -2,8 +2,10 @@ package model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class Product {
+    private Long id;
     private String name;
     private String description;
     private double price;
@@ -25,9 +27,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String description, double price, boolean isNegotiable, boolean isBiddable,
+    public Product(Long id, String name, String description, double price, boolean isNegotiable, boolean isBiddable,
                    LocalDate addedDate, LocalDate expiryDate, ProductStatus productStatus, Integer views, double latitude,
                    double longitude, Category category, User user) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -41,6 +44,10 @@ public class Product {
         this.longitude = longitude;
         this.category = category;
         this.user = user;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -177,5 +184,18 @@ public class Product {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return getId().equals(product.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

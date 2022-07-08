@@ -1,8 +1,10 @@
 package model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class User {
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -17,8 +19,9 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String country, String state, String city, Integer zip,
+    public User(Long id,String firstName, String lastName, String email, String country, String state, String city, Integer zip,
                 Double userLat, Double userLong) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -28,6 +31,10 @@ public class User {
         this.zip = zip;
         this.userLat = userLat;
         this.userLong = userLong;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -124,5 +131,18 @@ public class User {
                 ", userLong=" + userLong +
                 ", comments=" + comments +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getId().equals(user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

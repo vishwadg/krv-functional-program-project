@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 
 public class Bid {
+    Long id;
     private double bidValue;
     private User user;
     private Product product;
@@ -11,11 +12,16 @@ public class Bid {
     public Bid() {
     }
 
-    public Bid(double bidValue, User user, Product product, LocalDate createdAt) {
+    public Bid(Long id, double bidValue, User user, Product product, LocalDate createdAt) {
+        this.id = id;
         this.bidValue = bidValue;
         this.user = user;
         this.product = product;
         this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public double getBidValue() {
@@ -49,7 +55,8 @@ public class Bid {
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
-    public Bid getCurrent(){
+
+    public Bid getCurrent() {
         return this;
     }
 }
