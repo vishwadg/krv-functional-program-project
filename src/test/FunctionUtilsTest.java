@@ -24,12 +24,12 @@ class FunctionUtilsTest {
     void setUp() {
         marketplace = new Marketplace("KRV MarketPlace", "Fairfield", "12345");
 
-        User user1 = new User("Jhon", "Doe", "jhondoe@gmail.com", "USA", "IA", "Fairfield1", 52557, 32.123, 12.098);
-        User user2 = new User("Johnny", "Depp", "johnnydepp@gmail.com", "USA", "LA", "Fairfield2", 52558, 32.345, 12.089);
-        User user3 = new User("Amber", "Heard", "amberheard@gmail.com", "USA", "CA", "Fairfield3", 52559, 32.654, 12.183);
-        User user4 = new User("Jimmy", "Fallon", "jimmy@gmail.com", "USA", "TX", "Fairfield4", 52550, 32.543, 12.103);
-        User user5 = new User("Balie", "Haddin", "balie@gmail.com", "USA", "NY", "Fairfield5", 52552, 32.189, 12.143);
-        User user6 = new User("Roy", "Heard", "roy@gmail.com", "USA", "NJ", "Fairfield6", 52553, 32.187, 12.093);
+        User user1 = new User(1l, "Jhon", "Doe", "jhondoe@gmail.com", "USA", "IA", "Fairfield1", 52557, 32.123, 12.098);
+        User user2 = new User(2L, "Johnny", "Depp", "johnnydepp@gmail.com", "USA", "LA", "Fairfield2", 52558, 32.345, 12.089);
+        User user3 = new User(3L, "Amber", "Heard", "amberheard@gmail.com", "USA", "CA", "Fairfield3", 52559, 32.654, 12.183);
+        User user4 = new User(4L, "Jimmy", "Fallon", "jimmy@gmail.com", "USA", "TX", "Fairfield4", 52550, 32.543, 12.103);
+        User user5 = new User(5L, "Balie", "Haddin", "balie@gmail.com", "USA", "NY", "Fairfield5", 52552, 32.189, 12.143);
+        User user6 = new User(6L, "Roy", "Heard", "roy@gmail.com", "USA", "NJ", "Fairfield6", 52553, 32.187, 12.093);
 
 
         Image image1 = new Image("product1/path1/image1.jpg");
@@ -42,45 +42,45 @@ class FunctionUtilsTest {
         Image image8 = new Image("product3/path8/image6.jpg");
 
 
-        Category category1 = new Category("Electronics", "This is Electronics");
-        Category category2 = new Category("Furniture", "This is Furniture");
-        Category category3 = new Category("Fashion", "This is Fashion");
-        Category category4 = new Category("Books", "This is Books");
-        Category category5 = new Category("Digital Books", "This is digital books");
-        Category category6 = new Category("Handmade", "This is handmade");
+        Category category1 = new Category(1L, "Electronics", "This is Electronics");
+        Category category2 = new Category(2L, "Furniture", "This is Furniture");
+        Category category3 = new Category(3L, "Fashion", "This is Fashion");
+        Category category4 = new Category(4L, "Books", "This is Books");
+        Category category5 = new Category(5L, "Digital Books", "This is digital books");
+        Category category6 = new Category(6L, "Handmade", "This is handmade");
 
-        Product product1 = new Product("Iphone1", "Iphone1 Description ", 1200, true, true, LocalDate.parse("2022-01-01"),
+        Product product1 = new Product(1L, "Iphone1", "Iphone1 Description ", 1200, true, true, LocalDate.parse("2022-01-01"),
                 LocalDate.parse("2022-01-10"), ProductStatus.NEW, 20, 20.123, 23.123, category1, user1);
 
-        Product product2 = new Product("Samsung 123", "Samsung Description ", 600, true, true, LocalDate.parse("2022-05-01"),
+        Product product2 = new Product(2L, "Samsung S20", "Samsung Description ", 600, true, true, LocalDate.parse("2022-05-01"),
                 LocalDate.parse("2022-05-10"), ProductStatus.NEW, 20, 20.123, 23.123, category1, user2);
 
-        Product product3 = new Product("Today's Telegram Leather Jacket", "First Class Leather Jacket Description ", 40, true, true, LocalDate.parse("2022-03-01"),
+        Product product3 = new Product(3L, "Leather Jacket", "First Class Leather Jacket Description ", 40, true, true, LocalDate.parse("2022-03-01"),
                 LocalDate.parse("2022-03-20"), ProductStatus.NEW, 50, 20.123, 23.123, category3, user3);
 
-        Product product4 = new Product("Happiness Unlimited", "Happiness Unlimited Book Description ", 277, true, true, LocalDate.parse("2022-02-01"),
+        Product product4 = new Product(4L, "Happiness Unlimited", "Happiness Unlimited Book Description ", 277, true, true, LocalDate.parse("2022-02-01"),
                 LocalDate.parse("2022-02-10"), ProductStatus.NEW, 870, 32.988, 21.123, category4, user4);
 
-        Product product5 = new Product("UML Basics", "UML Basics Digital Books Description ", 210, true, true, LocalDate.parse("2022-02-15"),
+        Product product5 = new Product(5L, "UML Basics", "UML Basics Digital Books Description ", 210, true, true, LocalDate.parse("2022-02-15"),
                 LocalDate.parse("2022-02-25"), ProductStatus.NEW, 300, 34.123, 56.123, category5, user5);
 
-        Product product6 = new Product("Handmade Cushion", "Handmade Cushion Description ", 90, true, true, LocalDate.parse("2022-03-12"),
+        Product product6 = new Product(6L, "Handmade Cushion", "Handmade Cushion Description ", 90, true, true, LocalDate.parse("2022-03-12"),
                 LocalDate.parse("2022-03-28"), ProductStatus.NEW, 90, 19.123, 89.123, category6, user6);
 
 
-        Bid bid1 = new Bid(1210, user2, product3, LocalDate.parse("2022-01-05"));
-        Bid bid2 = new Bid(650, user3, product3, LocalDate.parse("2022-01-05"));
-        Bid bid3 = new Bid(60, user4, product3, LocalDate.parse("2022-01-05"));
-        Bid bid4 = new Bid(910, user5, product4, LocalDate.parse("2022-02-05"));
-        Bid bid5 = new Bid(400, user6, product4, LocalDate.parse("2022-02-19"));
-        Bid bid6 = new Bid(120, user4, product6, LocalDate.parse("2022-03-13"));
+        Bid bid1 = new Bid(1L, 1210, user2, product3, LocalDate.parse("2022-01-05"));
+        Bid bid2 = new Bid(2L, 650, user3, product3, LocalDate.parse("2022-01-05"));
+        Bid bid3 = new Bid(3L, 60, user4, product3, LocalDate.parse("2022-01-05"));
+        Bid bid4 = new Bid(4L, 910, user5, product4, LocalDate.parse("2022-02-05"));
+        Bid bid5 = new Bid(5L, 400, user6, product4, LocalDate.parse("2022-02-19"));
+        Bid bid6 = new Bid(6L, 120, user4, product6, LocalDate.parse("2022-03-13"));
 
-        Comment comment1 = new Comment("This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-01-07"));
-        Comment comment2 = new Comment("This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-05-07"));
-        Comment comment3 = new Comment("This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-03-07"));
-        Comment comment4 = new Comment("This is comment for Product 2 by user 3", product2, user3, LocalDate.parse("2022-02-06"));
-        Comment comment5 = new Comment("This is comment for Product 2 by user 3", product2, user3, LocalDate.parse("2022-02-20"));
-        Comment comment6 = new Comment("This is comment for Product 4 by user 4", product4, user4, LocalDate.parse("2022-03-14"));
+        Comment comment1 = new Comment(1L, "This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-01-07"));
+        Comment comment2 = new Comment(2L, "This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-05-07"));
+        Comment comment3 = new Comment(3L, "This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-03-07"));
+        Comment comment4 = new Comment(4L, "This is comment for Product 2 by user 3", product2, user3, LocalDate.parse("2022-02-06"));
+        Comment comment5 = new Comment(5L, "This is comment for Product 2 by user 3", product2, user3, LocalDate.parse("2022-02-20"));
+        Comment comment6 = new Comment(6L, "This is comment for Product 4 by user 4", product4, user4, LocalDate.parse("2022-03-14"));
 
         List<Bid> bids1 = Arrays.asList(bid1, bid2, bid3);
         List<Bid> bids2 = Arrays.asList(bid4, bid5);
@@ -130,15 +130,21 @@ class FunctionUtilsTest {
     //    Top K list of Users with maximum comments (with timeframe)
     @Test
     public void test1_topKListOfUsersWithComments() {
+        List<String> expectedUsers = Arrays.asList("Johnny", "Amber");
         Optional<List<User>> users = FunctionUtils.getKTopUserWithMaxComments.apply(marketplace, 2, 2022);
-        assertEquals(2, users.isPresent() ? users.get().size() : 0);
+        assertEquals(expectedUsers.get(0), users.get().get(0).getFirstName());
+        assertEquals(expectedUsers.get(1), users.get().get(1).getFirstName());
+        assertEquals(2, users.map(List::size).orElse(0));
     }
 
     //    Single Product with maximum bids
     @Test
     public void test2_SingleProductWithMaximumBids() {
+        List<String> expectedProduct = Arrays.asList("Leather Jacket", "Happiness Unlimited");
         Optional<List<Product>> product = FunctionUtils.getKProductWithMaximumBids.apply(marketplace, 2, 2022);
-        assertEquals(2, product.isPresent() ? product.get().size() : 0);
+        assertEquals(expectedProduct.get(0), product.isPresent() ? product.get().get(0).getName() : "");
+        assertEquals(expectedProduct.get(1), product.isPresent() ? product.get().get(1).getName() : "");
+        assertEquals(2, product.map(List::size).orElse(0));
     }
 
     @Test

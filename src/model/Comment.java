@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 
 public class Comment {
+    Long id;
     private String content;
     private Product product;
     private User user;
@@ -11,11 +12,16 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String content, Product product, User user, LocalDate createdAt) {
+    public Comment(Long id,String content, Product product, User user, LocalDate createdAt) {
+        this.id = id;
         this.content = content;
         this.product = product;
         this.user = user;
         this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public LocalDate getCreatedAt() {

@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 
 public class WishList {
+    private Long id;
     private Product product;
     private User user;
     private LocalDate createdAt;
@@ -10,10 +11,15 @@ public class WishList {
     public WishList() {
     }
 
-    public WishList(Product product, User user, LocalDate createdAt) {
+    public WishList(Long id,Product product, User user, LocalDate createdAt) {
+        this.id = id;
         this.product = product;
         this.user = user;
         this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Product getProduct() {

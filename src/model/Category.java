@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 public class Category {
+    Long id;
     private String name;
     private String description;
     private List<Product> products;
@@ -10,11 +11,11 @@ public class Category {
     public Category() {
     }
 
-    public Category( String name, String description) {
+    public Category(Long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
-
 
 
     public String getName() {

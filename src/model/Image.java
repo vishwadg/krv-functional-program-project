@@ -1,10 +1,24 @@
 package model;
 
 public class Image {
+    Long id;
     private String path;
     private Product product;
 
     public Image() {
+    }
+
+    public Image(Long id, String path) {
+        this.id = id;
+        this.path = path;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Image(String path) {
