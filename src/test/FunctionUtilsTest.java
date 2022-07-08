@@ -9,10 +9,7 @@ import org.junit.jupiter.api.Test;
 import utils.FunctionUtils;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -151,4 +148,8 @@ class FunctionUtilsTest {
         assertEquals(2, product.map(List::size).orElse(0));
     }
 
+    @Test
+    public void test3_productsWithHighestBids(){
+        Map<Product, Bid> d=FunctionUtils.productsWithHighestBids.apply(marketplace,2022);
+    }
 }
