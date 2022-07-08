@@ -16,6 +16,8 @@ public class User {
     private Double userLong;
     private List<Comment> comments;
 
+    private List<WishList> wishLists;
+
     public User() {
     }
 
@@ -115,6 +117,14 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<WishList> getWishLists() {
+        return wishLists;
+    }
+
+    public void setWishLists(List<WishList> wishLists) {
+        this.wishLists = wishLists;
     }
 
     @Override
