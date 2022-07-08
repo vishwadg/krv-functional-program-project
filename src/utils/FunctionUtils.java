@@ -28,7 +28,7 @@ public class FunctionUtils {
                     .collect(Collectors.toList()));
 
 
-    //    Single Product with maximum bids (with timeframe)
+    //    K Product with maximum bids (with timeframe)
     public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getKProductWithMaximumBids = (market, k, year) ->
             Optional.of(Stream.of(market).flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
                     .flatMap(b -> b.getBids() != null ? b.getBids().stream() : Stream.empty())
