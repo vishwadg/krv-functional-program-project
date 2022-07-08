@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public class Bids {
+public class Bid {
     private double bidValue;
     private User user;
     private Product product;

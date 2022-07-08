@@ -17,10 +17,33 @@ public class Product {
     private double longitude;
     private Category category;
     private List<Image> images;
-    private List<User> bidders;
-    private List<User> wishers;
-    private List<User> commenters;
+    private List<Bid> bids;
+    private List<WishList> wishLists;
+    private List<Comment> comments;
     private User user;
+
+    public Product() {
+    }
+
+    public Product(String name, String description, double price, boolean isNegotiable, boolean isBiddable, LocalDate addedDate, LocalDate expiryDate, ProductStatus productStatus, Integer views, double latitude, double longitude, Category category, List<Image> images, List<Bid> bids, List<WishList> wishLists, List<Comment> comments, User user) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.isNegotiable = isNegotiable;
+        this.isBiddable = isBiddable;
+        this.addedDate = addedDate;
+        this.expiryDate = expiryDate;
+        this.productStatus = productStatus;
+        this.views = views;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.category = category;
+        this.images = images;
+        this.bids = bids;
+        this.wishLists = wishLists;
+        this.comments = comments;
+        this.user = user;
+    }
 
     public String getName() {
         return name;
@@ -126,28 +149,28 @@ public class Product {
         this.category = category;
     }
 
-    public List<User> getBidders() {
-        return bidders;
+    public List<Bid> getBids() {
+        return bids;
     }
 
-    public void setBidders(List<User> bidders) {
-        this.bidders = bidders;
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
     }
 
-    public List<User> getWishers() {
-        return wishers;
+    public List<WishList> getWishLists() {
+        return wishLists;
     }
 
-    public void setWishers(List<User> wishers) {
-        this.wishers = wishers;
+    public void setWishLists(List<WishList> wishLists) {
+        this.wishLists = wishLists;
     }
 
-    public List<User> getCommenters() {
-        return commenters;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommenters(List<User> commenters) {
-        this.commenters = commenters;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public User getUser() {

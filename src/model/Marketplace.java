@@ -8,6 +8,16 @@ public class Marketplace {
     private String registrationId;
     private List<Product> products;
 
+    public Marketplace() {
+    }
+
+    public Marketplace(String name, String address, String registrationId, List<Product> products) {
+        this.name = name;
+        this.address = address;
+        this.registrationId = registrationId;
+        this.products = products;
+    }
+
     public String getName() {
         return name;
     }
