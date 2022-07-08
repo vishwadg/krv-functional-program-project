@@ -1,6 +1,7 @@
 package test;
 
 import model.*;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -21,9 +23,9 @@ class FunctionUtilsTest {
     private Marketplace marketplace;
 
 
-    @Before
+    @BeforeEach
     void setUp() {
-        Marketplace marketplace = new Marketplace("KRV MarketPlace", "Fairfield", "12345");
+        marketplace = new Marketplace("KRV MarketPlace", "Fairfield", "12345");
 
         User user1 = new User("Jhon", "Doe", "jhondoe@gmail.com", "USA", "IA", "Fairfield1", 52557, 32.123, 12.098);
         User user2 = new User("Johnny", "Depp", "johnnydepp@gmail.com", "USA", "LA", "Fairfield2", 52558, 32.345, 12.089);
@@ -69,11 +71,11 @@ class FunctionUtilsTest {
                 LocalDate.parse("2022-03-28"), ProductStatus.NEW, 90, 19.123, 89.123, category6, user6);
 
 
-        Bid bid1 = new Bid(1210, user2, product1, LocalDate.parse("2022-01-05"));
-        Bid bid2 = new Bid(650, user3, product1, LocalDate.parse("2022-01-05"));
-        Bid bid3 = new Bid(60, user4, product1, LocalDate.parse("2022-01-05"));
-        Bid bid4 = new Bid(910, user5, product2, LocalDate.parse("2022-02-05"));
-        Bid bid5 = new Bid(400, user6, product2, LocalDate.parse("2022-02-19"));
+        Bid bid1 = new Bid(1210, user2, product3, LocalDate.parse("2022-01-05"));
+        Bid bid2 = new Bid(650, user3, product3, LocalDate.parse("2022-01-05"));
+        Bid bid3 = new Bid(60, user4, product3, LocalDate.parse("2022-01-05"));
+        Bid bid4 = new Bid(910, user5, product4, LocalDate.parse("2022-02-05"));
+        Bid bid5 = new Bid(400, user6, product4, LocalDate.parse("2022-02-19"));
         Bid bid6 = new Bid(120, user4, product6, LocalDate.parse("2022-03-13"));
 
         Comment comment1 = new Comment("This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-01-07"));
@@ -83,22 +85,35 @@ class FunctionUtilsTest {
         Comment comment5 = new Comment("This is comment for Product 2 by user 3", product2, user3, LocalDate.parse("2022-02-20"));
         Comment comment6 = new Comment("This is comment for Product 4 by user 4", product4, user4, LocalDate.parse("2022-03-14"));
 
-        List<Bid> bids1 = Arrays.asList(bid1, bid2, bid3, bid5);
+        List<Bid> bids1 = Arrays.asList(bid1, bid2, bid3);
         List<Bid> bids2 = Arrays.asList(bid4, bid5);
+        List<Bid> bids3 = Arrays.asList(bid6);
 
         List<Image> images1 = Arrays.asList(image1, image2, image3, image4);
         List<Image> images2 = Arrays.asList(image5, image6, image7);
 
         List<Comment> comments1 = Arrays.asList(comment1, comment2, comment3);
         List<Comment> comments2 = Arrays.asList(comment4, comment5);
+        List<Comment> comments3 = Arrays.asList(comment6);
 
-        product1.setBids(bids1);
+        user2.setComments(Arrays.asList(comment1, comment2, comment3));
+        user3.setComments(Arrays.asList(comment4, comment5));
+        user4.setComments(Arrays.asList(comment6));
+
+
+        product3.setBids(bids1);
+
         product1.setImages(images1);
         product1.setComments(comments1);
 
-        product2.setBids(bids2);
+        product4.setBids(bids2);
+
         product2.setImages(images2);
         product2.setComments(comments2);
+
+        product4.setComments(comments3);
+
+        product6.setBids(bids3);
 
         List<Product> products = new ArrayList<>();
         products.add(product1);
@@ -106,6 +121,8 @@ class FunctionUtilsTest {
         products.add(product3);
         products.add(product4);
         products.add(product5);
+
+
         marketplace.setProducts(products);
     }
 
@@ -116,7 +133,14 @@ class FunctionUtilsTest {
     //    Top K list of Users with maximum comments (with timeframe)
     @Test
     public void test1_topKListOfUsersWithComments() {
-        Optional<List<User>> users = FunctionUtils.getKTopUserWithMaxComments.apply(marketplace, 2L, 2022);
-        assertEquals(2, users.stream().count());
+        Optional<List<User>> users = FunctionUtils.getKTopUserWithMaxComments.apply(marketplace, 2, 2022);
+        assertEquals(2, users.isPresent() ? users.get().size() : 0);
+    }
+
+    //    Single Product with maximum bids
+    @Test
+    public void test2_SingleProductWithMaximumBids() {
+        Optional<List<Product>> product = FunctionUtils.getKProductWithMaximumBids.apply(marketplace, 2, 2022);
+        assertEquals(2, product.isPresent() ? product.get().size() : 0);
     }
 }

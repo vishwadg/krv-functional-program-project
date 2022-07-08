@@ -11,9 +11,10 @@ import java.util.stream.Stream;
 
 public class FunctionUtils {
     //    Top K list of Users with maximum comments (with timeframe)
-    public static TriFunction<Marketplace, Long, Integer, Optional<List<User>>> getKTopUserWithMaxComments = (market, k, year) ->
-            Optional.of(Stream.of(market).flatMap(m -> m.getProducts().stream())
-                    .flatMap(p -> p.getComments().stream())
+    public static TriFunction<Marketplace, Integer, Integer, Optional<List<User>>> getKTopUserWithMaxComments = (market, k, year) ->
+            Optional.of(Stream.of(market)
+                    .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
+                    .flatMap(p -> p.getComments() != null ? p.getComments().stream() : Stream.empty())
                     .flatMap(co -> co.getUser().getComments().stream())
                     .filter(com -> com.getCreatedAt().getYear() == year)
                     .collect(Collectors.groupingBy(comm -> comm.getUser()))
@@ -25,15 +26,17 @@ public class FunctionUtils {
 
 
     //    Single Product with maximum bids (with timeframe)
-    public static TriFunction<Marketplace, Long, Integer, Optional<Product>> getKProductWithMaximumBids = (market, k, year) ->
-            Stream.of(market).flatMap(m -> m.getProducts().stream())
-                    .flatMap(b -> b.getBids().stream())
+    public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getKProductWithMaximumBids = (market, k, year) ->
+            Optional.of(Stream.of(market).flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
+                    .flatMap(b -> b.getBids() != null ? b.getBids().stream() : Stream.empty())
                     .filter(c -> c.getCreatedAt().getYear() == year)
                     .collect(Collectors.groupingBy(p -> p.getProduct()))
                     .entrySet()
                     .stream()
-                    .sorted((p1, p2) -> (int) (p1.getKey().getBids().stream().count() - p2.getKey().getBids().stream().count()))
-                    .findFirst()
-                    .map(e -> e.getKey());
+                    .sorted((p1, p2) -> p1.getKey().getBids() != null && p2.getKey().getBids() != null ?
+                            (int) (p1.getKey().getBids().stream().count() - p2.getKey().getBids().stream().count()) : 0)
+                    .limit(k)
+                    .map(p -> p.getKey())
+                    .collect(Collectors.toList()));
 
 }
