@@ -74,6 +74,7 @@ class FunctionUtilsTest {
         Bid bid4 = new Bid(4L, 910, user5, product4, LocalDate.parse("2022-02-05"));
         Bid bid5 = new Bid(5L, 400, user6, product4, LocalDate.parse("2022-02-19"));
         Bid bid6 = new Bid(6L, 120, user4, product6, LocalDate.parse("2022-03-13"));
+        Bid bid7 = new Bid(6L, 140, user5, product6, LocalDate.parse("2022-03-14"));
 
         Comment comment1 = new Comment(1L, "This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-01-07"));
         Comment comment2 = new Comment(2L, "This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-05-07"));
@@ -84,7 +85,7 @@ class FunctionUtilsTest {
 
         List<Bid> bids1 = Arrays.asList(bid1, bid2, bid3);
         List<Bid> bids2 = Arrays.asList(bid4, bid5);
-        List<Bid> bids3 = Arrays.asList(bid6);
+        List<Bid> bids3 = Arrays.asList(bid6, bid7);
 
         List<Image> images1 = Arrays.asList(image1, image2, image3, image4);
         List<Image> images2 = Arrays.asList(image5, image6, image7);
