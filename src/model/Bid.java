@@ -49,4 +49,7 @@ public class Bid {
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
+    public Bid getCurrent(){
+        return this;
+    }
 }

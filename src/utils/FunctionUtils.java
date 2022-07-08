@@ -1,11 +1,14 @@
 package utils;
 
+import model.Bid;
 import model.Marketplace;
 import model.Product;
 import model.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,5 +41,19 @@ public class FunctionUtils {
                     .limit(k)
                     .map(p -> p.getKey())
                     .collect(Collectors.toList()));
+
+    static BiFunction<Product,Integer, Bid> getHighestBid=(product, year)->
+            Stream.of(product)
+                    .flatMap(p->p.getBids().stream())
+                    .sorted((b1,b2)->(int)(b1.getBidValue()- b2.getBidValue()))
+                    .findFirst().get();
+
+
+
+    static BiFunction<Marketplace,Integer, Map<Product, Bid>> productsWithHighestBids=(marketplace, year)->
+            Stream.of(marketplace)
+                    .flatMap(m->m.getProducts().stream())
+                    .map(p->getHighestBid.apply(p, year))
+                    .collect(Collectors.toMap(Bid::getProduct,Bid::getCurrent));
 
 }
