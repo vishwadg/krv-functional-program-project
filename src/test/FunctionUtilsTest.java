@@ -148,10 +148,14 @@ class FunctionUtilsTest {
         assertEquals(2, product.map(List::size).orElse(0));
     }
 
+    //    3. Each product with highest bids
     @Test
-    public void test3_productsWithHighestBids(){
-        Map<Product, Optional<Bid>> d=FunctionUtils.productsWithHighestBids.apply(marketplace,2022);
-
-
+    public void test3_productsWithHighestBids() {
+        Map<Product, Optional<Bid>> bidMap = FunctionUtils.productsWithHighestBids.apply(marketplace, 2022);
+        Map<String, Double> expectedMap = new HashMap<>();
+        expectedMap.put("Leather Jacket", 1210.0);
+        expectedMap.put("Happiness Unlimited", 910.0);
+        assertEquals(expectedMap.get("Leather Jacket"), bidMap.entrySet().stream().toList().get(0).getValue().get().getBidValue());
+        assertEquals(expectedMap.get("Happiness Unlimited"), bidMap.entrySet().stream().toList().get(1).getValue().get().getBidValue());
     }
 }
