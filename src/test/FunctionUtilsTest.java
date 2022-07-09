@@ -112,7 +112,6 @@ class FunctionUtilsTest {
 
         product3.setBids(bids1);
 
-
         product1.setImages(images1);
         product1.setComments(comments1);
 
@@ -157,15 +156,6 @@ class FunctionUtilsTest {
         assertEquals(2, product.map(List::size).orElse(0));
     }
 
-    //14. Top K users who uploaded negotiable product with highest comments
-    @Test
-    public void test__usersWithHighestComments() {
-        Map<User, List<Comment>> data = FunctionUtils.usersWithHighestComments.apply(marketplace, 2022);
-        assertEquals(data.get(user2), user2.getComments());
-        assertEquals(data.get(user3).size(), user3.getComments().size());
-
-    }
-
     //    3. Each product with highest bids
     @Test
     public void test3_productsWithHighestBids() {
@@ -191,7 +181,24 @@ class FunctionUtilsTest {
     // 5. Top K users in particular location who uploaded product in Y category with high price
     @Test
     public void test5_getTopKUserInParticularLocationInYCatWithHighPrice() {
-        Optional<List<User>> users = FunctionUtils.getTopKUserInParticularLocationInYCatWithHighPrice.apply(marketplace, 2, 2022, "Fairfield", "Electronics");
-        System.out.println(users);
+        Optional<List<User>> users = FunctionUtils.getTopKUserInParticularLocationInYCatWithHighPrice
+                .apply(marketplace, 2, 2022, "Fairfield", "Electronics");
+        assertEquals(users.get().get(0), user6);
+        assertEquals(users.get().get(1), user2);
+    }
+
+    //14. Top K users who uploaded negotiable product with highest comments
+    @Test
+    public void test__usersWithHighestComments() {
+        Map<User, List<Comment>> data = FunctionUtils.usersWithHighestComments.apply(marketplace, 2022);
+        assertEquals(data.get(user2), user2.getComments());
+        assertEquals(data.get(user3).size(), user3.getComments().size());
+
+    }
+
+    //13.Imageless product receiving most comments in particular day
+    @Test
+    public void test__popularImagelessProductsByComments() {
+        List<Product> products = FunctionUtils.popularImagelessProductsByComments.apply(marketplace, 2022);
     }
 }

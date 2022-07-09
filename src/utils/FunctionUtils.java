@@ -20,12 +20,12 @@ public class FunctionUtils {
                     .flatMap(p -> p.getComments() != null ? p.getComments().stream() : Stream.empty())
                     .flatMap(co -> co.getUser().getComments().stream())
                     .filter(com -> com.getCreatedAt().getYear() == year)
-                    .collect(groupingBy(comm -> comm.getUser()))
+                    .collect(Collectors.groupingBy(comm -> comm.getUser()))
                     .entrySet()
                     .stream().sorted((c1, c2) -> (int) (c2.getValue().stream().count() - c1.getValue().stream().count()))
                     .limit(k)
                     .map(u -> u.getKey())
-                    .collect(toList()));
+                    .collect(Collectors.toList()));
 
 
     //  2. K Product with maximum bids
@@ -33,14 +33,14 @@ public class FunctionUtils {
             Optional.of(Stream.of(market).flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
                     .flatMap(b -> b.getBids() != null ? b.getBids().stream() : Stream.empty())
                     .filter(c -> c.getCreatedAt().getYear() == year)
-                    .collect(groupingBy(p -> p.getProduct()))
+                    .collect(Collectors.groupingBy(p -> p.getProduct()))
                     .entrySet()
                     .stream()
                     .sorted((p1, p2) -> p1.getKey().getBids() != null && p2.getKey().getBids() != null ?
                             (int) (p2.getKey().getBids().stream().count() - p1.getKey().getBids().stream().count()) : 0)
                     .limit(k)
                     .map(p -> p.getKey())
-                    .collect(toList()));
+                    .collect(Collectors.toList()));
 
 
     //    =====================================================================================================
@@ -56,7 +56,7 @@ public class FunctionUtils {
             Stream.of(marketplace)
                     .flatMap(m -> m.getProducts().stream())
                     .filter(p -> getHighestBid.apply(p, year).isPresent())
-                    .collect(toMap(product -> product, product -> getHighestBid.apply(product, year)));
+                    .collect(Collectors.toMap(product -> product, product -> getHighestBid.apply(product, year)));
 
 
     //    =====================================================================================================
@@ -69,7 +69,7 @@ public class FunctionUtils {
                     .filter(p -> p.isBiddable()).toList()
                     .stream().sorted((p1, p2) -> (int) (p2.getPrice() - p1.getPrice()))
                     .limit(k)
-                    .collect(toList())
+                    .collect(Collectors.toList())
             );
 
 
@@ -92,10 +92,23 @@ public class FunctionUtils {
                     .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
                     .filter(p -> p.isNegotiable())
                     .flatMap(p -> p.getComments() != null ? p.getComments().stream() : Stream.empty())
-                    .collect(groupingBy(c -> c.getUser()))
+                    .collect(Collectors.groupingBy(c -> c.getUser()))
                     .entrySet()
                     .stream()
-//                    .sorted((e1,e2)->(int)(e2.getValue().stream().count()-e1.getValue().stream().count()))
-                    .collect(toMap(a -> a.getKey(), b -> b.getValue()));
+                    .sorted((e1,e2)->(int)(e2.getValue().stream().count()-e1.getValue().stream().count()))
+                    .collect(Collectors.toMap(a -> a.getKey(), b -> b.getValue()));
+
+    //13. Imageless product receiving most comments in particular day
+    public static BiFunction<Marketplace,Integer,List<Product>> popularImagelessProductsByComments=(marketplace,year)->
+            Stream.of(marketplace)
+                    .flatMap(m->m.getProducts().stream())
+                    .filter(p->p.getImages()==null)
+                    .flatMap(p->p.getComments()!=null?p.getComments().stream():Stream.empty())
+                    .collect(Collectors.groupingBy(c->c.getProduct()))
+                    .entrySet().stream()
+                    .sorted((e1,e2)->(int)(e2.getValue().stream().count()-e1.getValue().stream().count()))
+                    .limit(10)
+                    .map(e->e.getKey())
+                    .collect(Collectors.toList());
 
 }
