@@ -180,4 +180,17 @@ public class FunctionUtils {
                     .limit(k)
                     .collect(Collectors.toList()));
 
+
+    public static QuadFunction<Marketplace, Category, Integer, Integer, Optional<List<User>>> getTopKBiddersInParticularCategoryInParticularYear = (marketplace, category, k, year) ->
+            Optional.of(Stream.of(marketplace)
+                    .flatMap(p->p.getProducts().stream())
+                    .filter(c->c.getCategory() == category)
+                    .flatMap(p->p.getBids() != null ? p.getBids().stream(): Stream.empty())
+                    .filter(b->b.getCreatedAt().getYear() == year)
+                    .sorted((b1, b2) -> (int) (b2.getBidValue()- b1.getBidValue()))
+                    .limit(k)
+                    .map(b->b.getUser())
+                    .collect(Collectors.toList()));
+
+
 }

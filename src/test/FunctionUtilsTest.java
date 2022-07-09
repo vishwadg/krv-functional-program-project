@@ -21,6 +21,7 @@ class FunctionUtilsTest {
     private User user1, user2, user3, user4, user5, user6;
     private Product product1, product2, product3, product4, product5, product6, product7;
 
+    private Category category1, category2, category3, category4, category5, category6;
 
     @BeforeEach
     void setUp() {
@@ -49,12 +50,12 @@ class FunctionUtilsTest {
         Image image13 = new Image("product7/path9/image8.jpg");
 
 
-        Category category1 = new Category(1L, "Electronics", "This is Electronics");
-        Category category2 = new Category(2L, "Furniture", "This is Furniture");
-        Category category3 = new Category(3L, "Fashion", "This is Fashion");
-        Category category4 = new Category(4L, "Books", "This is Books");
-        Category category5 = new Category(5L, "Digital Books", "This is digital books");
-        Category category6 = new Category(6L, "Handmade", "This is handmade");
+        category1 = new Category(1L, "Electronics", "This is Electronics");
+        category2 = new Category(2L, "Furniture", "This is Furniture");
+        category3 = new Category(3L, "Fashion", "This is Fashion");
+        category4 = new Category(4L, "Books", "This is Books");
+        category5 = new Category(5L, "Digital Books", "This is digital books");
+        category6 = new Category(6L, "Handmade", "This is handmade");
 
         product1 = new Product(1L, "Iphone1", "Iphone1 Description ", 200, true, false, LocalDate.parse("2022-01-01"),
                 LocalDate.parse("2022-01-10"), ProductStatus.SOLD, 20, 20.123, 23.123, category1, user1);
@@ -268,6 +269,12 @@ class FunctionUtilsTest {
     public void test_getTopKExpensiveBiddableProductAddedToWishList() {
         Optional<List<Product>> products = FunctionUtils.getTopKExpensiveBiddableProductAddedToWishList.apply(marketplace, 2, 2022);
         assertEquals(2, products.map(List::size).orElse(0));
-
     }
+
+    @Test
+    public void test_getTopKBiddersInParticularCategoryInParticularYear() {
+        Optional<List<User>> users = FunctionUtils.getTopKBiddersInParticularCategoryInParticularYear.apply(marketplace, category3, 2, 2022);
+        assertEquals(2, users.map(List::size).orElse(0));
+    }
+
 }
