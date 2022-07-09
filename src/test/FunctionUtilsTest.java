@@ -121,7 +121,7 @@ class FunctionUtilsTest {
 
         product4.setBids(bids2);
 
-        product2.setImages(images2);
+//        product2.setImages(images2);
         product2.setComments(comments2);
 
         product4.setComments(comments3);
@@ -214,12 +214,19 @@ class FunctionUtilsTest {
     @Test
     public void test__popularImagelessProductsByComments() {
         List<Product> products = FunctionUtils.popularImagelessProductsByComments.apply(marketplace, 2022);
+        for(Product p:products){
+            assertNull(p.getImages());
+        }
+        assertEquals(products.get(0).getComments().size(),2);
+        assertEquals(products.get(1).getComments().size(),1);
     }
 
     //12.Total comments in particular users product on particular day
     @Test
     public void test__totalCommentsOnUsersProduct(){
         Map<User, List<Comment>> data = FunctionUtils.totalCommentsOnUsersProduct.apply(marketplace, 2022);
+        assertEquals(data.get(user1).size(),5);
+        assertEquals(data.get(user4).size(),2);
     }
 
     // 17. Users Product with at least K Comments
