@@ -19,6 +19,7 @@ class FunctionUtilsTest {
 
     private Marketplace marketplace;
     private User user1, user2, user3, user4, user5, user6;
+    private Product product1, product2, product3, product4, product5, product6, product7;
 
 
     @BeforeEach
@@ -55,25 +56,25 @@ class FunctionUtilsTest {
         Category category5 = new Category(5L, "Digital Books", "This is digital books");
         Category category6 = new Category(6L, "Handmade", "This is handmade");
 
-        Product product1 = new Product(1L, "Iphone1", "Iphone1 Description ", 200, true, false, LocalDate.parse("2022-01-01"),
-                LocalDate.parse("2022-01-10"), ProductStatus.NEW, 20, 20.123, 23.123, category1, user1);
+        product1 = new Product(1L, "Iphone1", "Iphone1 Description ", 200, true, false, LocalDate.parse("2022-01-01"),
+                LocalDate.parse("2022-01-10"), ProductStatus.SOLD, 20, 20.123, 23.123, category1, user1);
 
-        Product product2 = new Product(2L, "Samsung S20", "Samsung Description ", 600, true, true, LocalDate.parse("2022-05-01"),
-                LocalDate.parse("2022-05-10"), ProductStatus.NEW, 20, 20.123, 23.123, category1, user2);
+        product2 = new Product(2L, "Samsung S20", "Samsung Description ", 600, true, true, LocalDate.parse("2022-05-01"),
+                LocalDate.parse("2022-05-10"), ProductStatus.SOLD, 20, 20.123, 23.123, category1, user1);
 
-        Product product3 = new Product(3L, "Leather Jacket", "First Class Leather Jacket Description ", 40, true, true, LocalDate.parse("2022-03-01"),
+        product3 = new Product(3L, "Leather Jacket", "First Class Leather Jacket Description ", 40, true, true, LocalDate.parse("2022-03-01"),
                 LocalDate.parse("2022-03-20"), ProductStatus.NEW, 50, 20.123, 23.123, category3, user3);
 
-        Product product4 = new Product(4L, "Happiness Unlimited", "Happiness Unlimited Book Description ", 277, false, true, LocalDate.parse("2022-02-01"),
+        product4 = new Product(4L, "Happiness Unlimited", "Happiness Unlimited Book Description ", 277, false, true, LocalDate.parse("2022-02-01"),
                 LocalDate.parse("2022-02-10"), ProductStatus.NEW, 870, 32.988, 21.123, category4, user4);
 
-        Product product5 = new Product(5L, "UML Basics", "UML Basics Digital Books Description ", 210, true, true, LocalDate.parse("2022-02-15"),
+        product5 = new Product(5L, "UML Basics", "UML Basics Digital Books Description ", 210, true, true, LocalDate.parse("2022-02-15"),
                 LocalDate.parse("2022-02-25"), ProductStatus.NEW, 300, 34.123, 56.123, category5, user5);
 
-        Product product6 = new Product(6L, "Handmade Cushion", "Handmade Cushion Description ", 90, true, true, LocalDate.parse("2022-03-12"),
+        product6 = new Product(6L, "Handmade Cushion", "Handmade Cushion Description ", 90, true, true, LocalDate.parse("2022-03-12"),
                 LocalDate.parse("2022-03-28"), ProductStatus.NEW, 90, 19.123, 89.123, category6, user6);
 
-        Product product7 = new Product(7L, "Motorola Razer", "Samsung Description ", 690, true, true, LocalDate.parse("2022-05-04"),
+        product7 = new Product(7L, "Motorola Razer", "Samsung Description ", 690, true, true, LocalDate.parse("2022-05-04"),
                 LocalDate.parse("2022-05-19"), ProductStatus.NEW, 20, 20.123, 23.123, category1, user6);
 
 
@@ -220,7 +221,13 @@ class FunctionUtilsTest {
         assertEquals(users.get().get(1), user4);
     }
 
-    // 9.Imageless product receiving most comments in particular day
+    // 8.Total comments in particular users product on particular day
+    @Test
+    public void test__totalCommentsOnUsersProduct() {
+        Map<User, List<Comment>> data = FunctionUtils.totalCommentsOnUsersProduct.apply(marketplace, 2022);
+    }
+
+    // 9. Imageless product receiving most comments in particular day
     @Test
     public void test__popularImagelessProductsByComments() {
         List<Product> products = FunctionUtils.popularImagelessProductsByComments.apply(marketplace, 2022);
@@ -232,6 +239,21 @@ class FunctionUtilsTest {
         Map<User, List<Comment>> data = FunctionUtils.usersWithHighestComments.apply(marketplace, 2022);
         assertEquals(data.get(user2), user2.getComments());
         assertEquals(data.get(user3).size(), user3.getComments().size());
+    }
 
+    // 11. Users Product with at least K Comments
+    @Test
+    public void test__usersProductsWithAtLeastKComments() {
+        Map<User, List<Comment>> data = FunctionUtils.usersProductsWithAtLeastKComments.apply(marketplace, 2022, 3);
+        data.entrySet().stream().forEach(e -> {
+            assertFalse(e.getValue().size() < 3);
+        });
+    }
+
+    // 12. Top K users whose product sold in Y year
+    @Test
+    public void test__topKUsersWhoseProductIsSoldMaximum() {
+        Map<User, List<Product>> data = FunctionUtils.topKUsersWhoseProductIsSoldMaximum.apply(marketplace, 2022, 10);
+        assertEquals(data.get(user1).size(), 2);
     }
 }
