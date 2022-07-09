@@ -186,7 +186,7 @@ class FunctionUtilsTest {
     @Test
     public void test4_topExpensiveBiddableProduct() {
         Optional<List<Product>> product = FunctionUtils.getKTopExpensiveBiddableProduct.apply(marketplace, 2, 2022);
-        List<Double> expectedProduct = Arrays.asList(600.0, 277.0);
+        List<Double> expectedProduct = Arrays.asList(690.0, 600.0);
         System.out.println(product);
         assertEquals(expectedProduct.get(0), product.map(products -> products.get(0).getPrice()).orElse(0.0));
         assertEquals(expectedProduct.get(1), product.map(products -> products.get(1).getPrice()).orElse(0.0));
@@ -199,7 +199,7 @@ class FunctionUtilsTest {
         Optional<List<User>> users = FunctionUtils.getTopKUserInParticularLocationInYCatWithHighPrice
                 .apply(marketplace, 2, 2022, "Fairfield", "Electronics");
         assertEquals(users.get().get(0), user6);
-        assertEquals(users.get().get(1), user2);
+        assertEquals(users.get().get(1), user1);
     }
 
     //   6. Top K users who uploaded product with maximum images
