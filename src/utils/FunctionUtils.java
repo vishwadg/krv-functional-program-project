@@ -2,6 +2,7 @@ package utils;
 
 import model.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,8 +100,19 @@ public class FunctionUtils {
             .collect(toList())
     );
 
+    //  7. Top K User whose product expired before Y date which is added to wishlist by other user
+    public static TriFunction<Marketplace, Integer, LocalDate, Optional<List<User>>> getTopKUSerWhoseProductExpiredOnYDateAddedToWishList
+            = (market, k, localDate) -> Optional.of(Stream.of(market)
+            .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
+            .filter(p -> localDate.isAfter(p.getExpiryDate()))
+            .flatMap(p -> p.getWishLists() != null ? p.getWishLists().stream() : Stream.empty())
+            .map(w -> w.getProduct())
+            .map(p -> p.getUser())
+            .distinct()
+            .limit(2)
+            .collect(toList()));
 
-    //13. Imageless product receiving most comments in particular day
+    // 9. Imageless product receiving most comments in particular day
     public static BiFunction<Marketplace, Integer, List<Product>> popularImagelessProductsByComments = (marketplace, year) ->
             Stream.of(marketplace)
                     .flatMap(m -> m.getProducts().stream())
@@ -113,7 +125,7 @@ public class FunctionUtils {
                     .map(e -> e.getKey())
                     .collect(Collectors.toList());
 
-    //14. Top K users who uploaded negotiable product with highest comments
+    // 10. Top K users who uploaded negotiable product with highest comments
     public static BiFunction<Marketplace, Integer, Map<User, List<Comment>>> usersWithHighestComments = (marketplace, year) ->
             Stream.of(marketplace)
                     .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())

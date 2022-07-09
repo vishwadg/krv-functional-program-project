@@ -112,11 +112,20 @@ class FunctionUtilsTest {
         user3.setComments(Arrays.asList(comment4, comment5));
         user4.setComments(Arrays.asList(comment6, comment7));
 
+        WishList wish1 = new WishList(1L, product1, user2, LocalDate.parse("2022-01-11"));
+        WishList wish2 = new WishList(2L, product4, user3, LocalDate.parse("2022-02-11"));
+        WishList wish3 = new WishList(3L, product6, user2, LocalDate.parse("2022-03-29"));
+        WishList wish4 = new WishList(4L, product1, user3, LocalDate.parse("2022-03-30"));
+
+
+        user2.setWishLists(Arrays.asList(wish1, wish3));
+        user3.setWishLists(Arrays.asList(wish2, wish4));
 
         product3.setBids(bids1);
 
         product1.setImages(images1);
         product1.setComments(comments1);
+        product1.setWishLists(Arrays.asList(wish1, wish4));
 
         product4.setBids(bids2);
 
@@ -124,8 +133,10 @@ class FunctionUtilsTest {
         product2.setComments(comments2);
 
         product4.setComments(comments3);
+        product4.setWishLists(Arrays.asList(wish2));
 
         product6.setBids(bids3);
+        product6.setWishLists(Arrays.asList(wish3));
 
         product7.setBids(bids4);
         product7.setImages(images3);
@@ -200,18 +211,27 @@ class FunctionUtilsTest {
         assertEquals(users.get().get(1), user1);
     }
 
-    //14. Top K users who uploaded negotiable product with highest comments
+    //    7. Top K User whose product expired before Y date which is added to wishlist by other user
+    @Test
+    public void test8_getTopKUSerWhoseProductExpiredOnYDateAddedToWishList() {
+        Optional<List<User>> users = FunctionUtils.getTopKUSerWhoseProductExpiredOnYDateAddedToWishList
+                .apply(marketplace, 2, LocalDate.parse("2022-02-11"));
+        assertEquals(users.get().get(0), user1);
+        assertEquals(users.get().get(1), user4);
+    }
+
+    // 9.Imageless product receiving most comments in particular day
+    @Test
+    public void test__popularImagelessProductsByComments() {
+        List<Product> products = FunctionUtils.popularImagelessProductsByComments.apply(marketplace, 2022);
+    }
+
+    // 10. Top K users who uploaded negotiable product with highest comments
     @Test
     public void test__usersWithHighestComments() {
         Map<User, List<Comment>> data = FunctionUtils.usersWithHighestComments.apply(marketplace, 2022);
         assertEquals(data.get(user2), user2.getComments());
         assertEquals(data.get(user3).size(), user3.getComments().size());
 
-    }
-
-    //13.Imageless product receiving most comments in particular day
-    @Test
-    public void test__popularImagelessProductsByComments() {
-        List<Product> products = FunctionUtils.popularImagelessProductsByComments.apply(marketplace, 2022);
     }
 }
