@@ -165,4 +165,19 @@ public class FunctionUtils {
                     .sorted((c1, c2) -> (int) (c2.getValue().stream().count() - c1.getValue().stream().count()))
                     .limit(limit)
                     .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+
+    public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getKExpensiveBiddableProductAddedToWishList = (marketplace, k, year) ->
+            Optional.of(Stream.of(marketplace)
+                    .flatMap(m->m.getProducts().stream())
+                    .filter(y -> y.getAddedDate().getYear() == year)
+                    .filter(p -> p.isBiddable() == true)
+                    .flatMap(w->w.getWishLists() != null ? w.getWishLists().stream() : Stream.empty())
+                    .map(w->w.getProduct())
+                    .collect(Collectors.groupingBy(p -> p))
+                    .entrySet()
+                    .stream().map(e -> e.getKey())
+                    .sorted((p1, p2) -> (int) (p2.getPrice() - p1.getPrice()))
+                    .limit(k)
+                    .collect(Collectors.toList()));
+
 }
