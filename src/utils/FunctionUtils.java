@@ -111,4 +111,31 @@ public class FunctionUtils {
                     .map(e->e.getKey())
                     .collect(Collectors.toList());
 
+    //12.Total comments in particular users product on particular day
+    public static BiFunction<Marketplace,Integer,Map<User,List<Comment>>> totalCommentsOnUsersProduct=(marketplace,year)->
+            Stream.of(marketplace)
+                    .flatMap(m->m.getProducts()!=null?m.getProducts().stream():Stream.empty())
+                    .flatMap(p->p.getComments()!=null?p.getComments().stream():Stream.empty())
+                    .collect(Collectors.groupingBy(c->c.getProduct().getUser()))
+                    .entrySet().stream()
+                    .collect(Collectors.toMap(e->e.getKey(),e->e.getValue()));
+
+    // 17. Users Product with at least K Comments
+    public static TriFunction<Marketplace,Integer,Integer,Map<User,List<Comment>>> usersProductsWithAtLeastKComments=(marketplace, year, minCommentCount) ->
+            totalCommentsOnUsersProduct.apply(marketplace,year)
+                    .entrySet().stream()
+                    .filter(e->e.getValue().stream().count()>=minCommentCount)
+                    .collect(Collectors.toMap(e1->e1.getKey(),e2->e2.getValue()));
+
+    //10.Top K users whose product sold in Y year
+
+    public static TriFunction<Marketplace,Integer,Integer,Map<User,List<Product>>> topKUsersWhoseProductIsSoldMaximum=(marketplace,year,limit)->
+            Stream.of(marketplace)
+                    .flatMap(m->m.getProducts()!=null?m.getProducts().stream():Stream.empty())
+                    .filter(p->p.getProductStatus().equals(ProductStatus.SOLD))
+                    .collect(Collectors.groupingBy(p->p.getUser()))
+                    .entrySet().stream()
+                    .sorted((c1,c2)->(int)(c2.getValue().stream().count()-c1.getValue().stream().count()))
+                    .limit(limit)
+                    .collect(Collectors.toMap(e->e.getKey(),e->e.getValue()));
 }
