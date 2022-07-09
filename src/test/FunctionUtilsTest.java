@@ -256,4 +256,11 @@ class FunctionUtilsTest {
         Map<User, List<Product>> data = FunctionUtils.topKUsersWhoseProductIsSoldMaximum.apply(marketplace, 2022, 10);
         assertEquals(data.get(user1).size(), 2);
     }
+
+    @Test
+    public void test_getKExpensiveBiddableProductAddedToWishList() {
+        Optional<List<Product>> products = FunctionUtils.getKExpensiveBiddableProductAddedToWishList.apply(marketplace, 2, 2022);
+        assertEquals(2, products.map(List::size).orElse(0));
+
+    }
 }
