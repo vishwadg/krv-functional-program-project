@@ -80,7 +80,20 @@ public class FunctionUtils {
                     .collect(Collectors.groupingBy(c -> c.getUser()))
                     .entrySet()
                     .stream()
-//                    .sorted((e1,e2)->(int)(e2.getValue().stream().count()-e1.getValue().stream().count()))
+                    .sorted((e1,e2)->(int)(e2.getValue().stream().count()-e1.getValue().stream().count()))
                     .collect(Collectors.toMap(a -> a.getKey(), b -> b.getValue()));
+
+    //13. Imageless product receiving most comments in particular day
+    public static BiFunction<Marketplace,Integer,List<Product>> popularImagelessProductsByComments=(marketplace,year)->
+            Stream.of(marketplace)
+                    .flatMap(m->m.getProducts().stream())
+                    .filter(p->p.getImages()==null)
+                    .flatMap(p->p.getComments()!=null?p.getComments().stream():Stream.empty())
+                    .collect(Collectors.groupingBy(c->c.getProduct()))
+                    .entrySet().stream()
+                    .sorted((e1,e2)->(int)(e2.getValue().stream().count()-e1.getValue().stream().count()))
+                    .limit(10)
+                    .map(e->e.getKey())
+                    .collect(Collectors.toList());
 
 }

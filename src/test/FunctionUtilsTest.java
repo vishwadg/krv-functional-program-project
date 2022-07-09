@@ -157,6 +157,11 @@ class FunctionUtilsTest {
         assertEquals(data.get(user3).size(),user3.getComments().size());
 
     }
+    //13.Imageless product receiving most comments in particular day
+    @Test
+    public void test__popularImagelessProductsByComments(){
+        List<Product> products = FunctionUtils.popularImagelessProductsByComments.apply(marketplace, 2022);
+    }
     //    3. Each product with highest bids
     @Test
     public void test3_productsWithHighestBids() {
