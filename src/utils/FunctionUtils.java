@@ -2,6 +2,7 @@ package utils;
 
 import model.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class FunctionUtils {
 
     //    =====================================================================================================
 
-    //    4.Most top K expensive biddable product added
+    //  4.Most top K expensive biddable product added
     public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getKTopExpensiveBiddableProduct = (market, k, year) ->
             Optional.of(Stream.of(market)
                     .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
@@ -73,7 +74,7 @@ public class FunctionUtils {
             );
 
 
-    //    5. Top K users in particular city who uploaded product in Y category with high price
+    //  5. Top K users in particular city who uploaded product in Y category with high price
     public static HexaFunction<Marketplace, Integer, Integer, String, String, Optional<List<User>>>
             getTopKUserInParticularLocationInYCatWithHighPrice = (market, k, year, loc, cat) ->
             Optional.of(Stream.of(market)
@@ -87,7 +88,7 @@ public class FunctionUtils {
                     .collect(toList()));
 
 
-    //   6. Top K users who uploaded product with maximum images
+    //  6. Top K users who uploaded product with maximum images
     public static TriFunction<Marketplace, Integer, Integer, Optional<List<User>>> getTopKUserWhoUploadedProductWithMaximumImages
             = (market, k, year) -> Optional.of(Stream.of(market)
             .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
@@ -99,8 +100,29 @@ public class FunctionUtils {
             .collect(toList())
     );
 
+    //  7. Top K User whose product expired before Y date which is added to wishlist by other user
+    public static TriFunction<Marketplace, Integer, LocalDate, Optional<List<User>>> getTopKUSerWhoseProductExpiredOnYDateAddedToWishList
+            = (market, k, localDate) -> Optional.of(Stream.of(market)
+            .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
+            .filter(p -> localDate.isAfter(p.getExpiryDate()))
+            .flatMap(p -> p.getWishLists() != null ? p.getWishLists().stream() : Stream.empty())
+            .map(w -> w.getProduct())
+            .map(p -> p.getUser())
+            .distinct()
+            .limit(2)
+            .collect(toList()));
 
-    //13. Imageless product receiving most comments in particular day
+    // 8.Total comments in particular users product on particular day
+    public static BiFunction<Marketplace, Integer, Map<User, List<Comment>>> totalCommentsOnUsersProduct = (marketplace, year) ->
+            Stream.of(marketplace)
+                    .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
+                    .flatMap(p -> p.getComments() != null ? p.getComments().stream() : Stream.empty())
+                    .collect(Collectors.groupingBy(c -> c.getProduct().getUser()))
+                    .entrySet().stream()
+                    .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+
+
+    // 9. Imageless product receiving most comments in particular day
     public static BiFunction<Marketplace, Integer, List<Product>> popularImagelessProductsByComments = (marketplace, year) ->
             Stream.of(marketplace)
                     .flatMap(m -> m.getProducts().stream())
@@ -113,7 +135,7 @@ public class FunctionUtils {
                     .map(e -> e.getKey())
                     .collect(Collectors.toList());
 
-    //14. Top K users who uploaded negotiable product with highest comments
+    // 10. Top K users who uploaded negotiable product with highest comments
     public static BiFunction<Marketplace, Integer, Map<User, List<Comment>>> usersWithHighestComments = (marketplace, year) ->
             Stream.of(marketplace)
                     .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
@@ -125,31 +147,22 @@ public class FunctionUtils {
                     .sorted((e1, e2) -> (int) (e2.getValue().stream().count() - e1.getValue().stream().count()))
                     .collect(Collectors.toMap(a -> a.getKey(), b -> b.getValue()));
 
-    //12.Total comments in particular users product on particular day
-    public static BiFunction<Marketplace,Integer,Map<User,List<Comment>>> totalCommentsOnUsersProduct=(marketplace,year)->
+
+    // 11. Users Product with at least K Comments
+    public static TriFunction<Marketplace, Integer, Integer, Map<User, List<Comment>>> usersProductsWithAtLeastKComments = (marketplace, year, minCommentCount) ->
+            totalCommentsOnUsersProduct.apply(marketplace, year)
+                    .entrySet().stream()
+                    .filter(e -> e.getValue().stream().count() >= minCommentCount)
+                    .collect(Collectors.toMap(e1 -> e1.getKey(), e2 -> e2.getValue()));
+
+    // 12. Top K users whose product sold in Y year
+    public static TriFunction<Marketplace, Integer, Integer, Map<User, List<Product>>> topKUsersWhoseProductIsSoldMaximum = (marketplace, year, limit) ->
             Stream.of(marketplace)
-                    .flatMap(m->m.getProducts()!=null?m.getProducts().stream():Stream.empty())
-                    .flatMap(p->p.getComments()!=null?p.getComments().stream():Stream.empty())
-                    .collect(Collectors.groupingBy(c->c.getProduct().getUser()))
+                    .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
+                    .filter(p -> p.getProductStatus().equals(ProductStatus.SOLD))
+                    .collect(Collectors.groupingBy(p -> p.getUser()))
                     .entrySet().stream()
-                    .collect(Collectors.toMap(e->e.getKey(),e->e.getValue()));
-
-    // 17. Users Product with at least K Comments
-    public static TriFunction<Marketplace,Integer,Integer,Map<User,List<Comment>>> usersProductsWithAtLeastKComments=(marketplace, year, minCommentCount) ->
-            totalCommentsOnUsersProduct.apply(marketplace,year)
-                    .entrySet().stream()
-                    .filter(e->e.getValue().stream().count()>=minCommentCount)
-                    .collect(Collectors.toMap(e1->e1.getKey(),e2->e2.getValue()));
-
-    //10.Top K users whose product sold in Y year
-
-    public static TriFunction<Marketplace,Integer,Integer,Map<User,List<Product>>> topKUsersWhoseProductIsSoldMaximum=(marketplace,year,limit)->
-            Stream.of(marketplace)
-                    .flatMap(m->m.getProducts()!=null?m.getProducts().stream():Stream.empty())
-                    .filter(p->p.getProductStatus().equals(ProductStatus.SOLD))
-                    .collect(Collectors.groupingBy(p->p.getUser()))
-                    .entrySet().stream()
-                    .sorted((c1,c2)->(int)(c2.getValue().stream().count()-c1.getValue().stream().count()))
+                    .sorted((c1, c2) -> (int) (c2.getValue().stream().count() - c1.getValue().stream().count()))
                     .limit(limit)
-                    .collect(Collectors.toMap(e->e.getKey(),e->e.getValue()));
+                    .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
 }
