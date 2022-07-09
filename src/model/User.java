@@ -18,6 +18,7 @@ public class User {
 
     private List<WishList> wishLists;
 
+    private List<Product> products;
     public User() {
     }
 
@@ -127,6 +128,14 @@ public class User {
         this.wishLists = wishLists;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -143,16 +152,30 @@ public class User {
                 '}';
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof User)) return false;
+//        User user = (User) o;
+//        return getId().equals(user.getId());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getId());
+//    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getId().equals(user.getId());
+        return getId().equals(user.getId()) && getCity().equals(user.getCity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getId(), getCity());
     }
 }

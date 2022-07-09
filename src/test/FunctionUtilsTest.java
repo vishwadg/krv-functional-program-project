@@ -18,19 +18,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class FunctionUtilsTest {
 
     private Marketplace marketplace;
-    private User user1,user2,user3,user4,user5,user6;
+    private User user1, user2, user3, user4, user5, user6;
 
 
     @BeforeEach
     void setUp() {
         marketplace = new Marketplace("KRV MarketPlace", "Fairfield", "12345");
 
-         user1 = new User(1l, "Jhon", "Doe", "jhondoe@gmail.com", "USA", "IA", "Fairfield1", 52557, 32.123, 12.098);
-         user2 = new User(2L, "Johnny", "Depp", "johnnydepp@gmail.com", "USA", "LA", "Fairfield2", 52558, 32.345, 12.089);
-         user3 = new User(3L, "Amber", "Heard", "amberheard@gmail.com", "USA", "CA", "Fairfield3", 52559, 32.654, 12.183);
-         user4 = new User(4L, "Jimmy", "Fallon", "jimmy@gmail.com", "USA", "TX", "Fairfield4", 52550, 32.543, 12.103);
-         user5 = new User(5L, "Balie", "Haddin", "balie@gmail.com", "USA", "NY", "Fairfield5", 52552, 32.189, 12.143);
-         user6 = new User(6L, "Roy", "Heard", "roy@gmail.com", "USA", "NJ", "Fairfield6", 52553, 32.187, 12.093);
+        user1 = new User(1l, "Jhon", "Doe", "jhondoe@gmail.com", "USA", "IA", "Fairfield", 52557, 32.123, 12.098);
+        user2 = new User(2L, "Johnny", "Depp", "johnnydepp@gmail.com", "USA", "LA", "Fairfield", 52558, 32.345, 12.089);
+        user3 = new User(3L, "Amber", "Heard", "amberheard@gmail.com", "USA", "CA", "Fairfield", 52559, 32.654, 12.183);
+        user4 = new User(4L, "Jimmy", "Fallon", "jimmy@gmail.com", "USA", "TX", "Fairfield", 52550, 32.543, 12.103);
+        user5 = new User(5L, "Balie", "Haddin", "balie@gmail.com", "USA", "NY", "Fairfield", 52552, 32.189, 12.143);
+        user6 = new User(6L, "Roy", "Heard", "roy@gmail.com", "USA", "NJ", "Fairfield", 52553, 32.187, 12.093);
 
 
         Image image1 = new Image("product1/path1/image1.jpg");
@@ -41,6 +41,8 @@ class FunctionUtilsTest {
         Image image6 = new Image("product2/path6/image6.jpg");
         Image image7 = new Image("product2/path7/image5.jpg");
         Image image8 = new Image("product3/path8/image6.jpg");
+        Image image9 = new Image("product7/path8/image6.jpg");
+        Image image10 = new Image("product7/path9/image8.jpg");
 
 
         Category category1 = new Category(1L, "Electronics", "This is Electronics");
@@ -50,7 +52,7 @@ class FunctionUtilsTest {
         Category category5 = new Category(5L, "Digital Books", "This is digital books");
         Category category6 = new Category(6L, "Handmade", "This is handmade");
 
-        Product product1 = new Product(1L, "Iphone1", "Iphone1 Description ", 1200, true, false, LocalDate.parse("2022-01-01"),
+        Product product1 = new Product(1L, "Iphone1", "Iphone1 Description ", 200, true, false, LocalDate.parse("2022-01-01"),
                 LocalDate.parse("2022-01-10"), ProductStatus.NEW, 20, 20.123, 23.123, category1, user1);
 
         Product product2 = new Product(2L, "Samsung S20", "Samsung Description ", 600, true, true, LocalDate.parse("2022-05-01"),
@@ -68,6 +70,9 @@ class FunctionUtilsTest {
         Product product6 = new Product(6L, "Handmade Cushion", "Handmade Cushion Description ", 90, true, true, LocalDate.parse("2022-03-12"),
                 LocalDate.parse("2022-03-28"), ProductStatus.NEW, 90, 19.123, 89.123, category6, user6);
 
+        Product product7 = new Product(7L, "Motorola Razer", "Samsung Description ", 690, true, true, LocalDate.parse("2022-05-04"),
+                LocalDate.parse("2022-05-19"), ProductStatus.NEW, 20, 20.123, 23.123, category1, user6);
+
 
         Bid bid1 = new Bid(1L, 1210, user2, product3, LocalDate.parse("2022-01-05"));
         Bid bid2 = new Bid(2L, 650, user3, product3, LocalDate.parse("2022-01-05"));
@@ -76,6 +81,7 @@ class FunctionUtilsTest {
         Bid bid5 = new Bid(5L, 400, user6, product4, LocalDate.parse("2022-02-19"));
         Bid bid6 = new Bid(6L, 120, user4, product6, LocalDate.parse("2022-03-13"));
         Bid bid7 = new Bid(6L, 140, user5, product6, LocalDate.parse("2022-03-14"));
+        Bid bid8 = new Bid(8L, 700, user5, product6, LocalDate.parse("2022-05-14"));
 
         Comment comment1 = new Comment(1L, "This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-01-07"));
         Comment comment2 = new Comment(2L, "This is comment for Product 1 by user 2", product1, user2, LocalDate.parse("2022-05-07"));
@@ -83,24 +89,29 @@ class FunctionUtilsTest {
         Comment comment4 = new Comment(4L, "This is comment for Product 2 by user 3", product2, user3, LocalDate.parse("2022-02-06"));
         Comment comment5 = new Comment(5L, "This is comment for Product 2 by user 3", product2, user3, LocalDate.parse("2022-02-20"));
         Comment comment6 = new Comment(6L, "This is comment for Product 4 by user 4", product4, user4, LocalDate.parse("2022-03-14"));
+        Comment comment7 = new Comment(7L, "This is comment for Product 7 by user 4", product4, user4, LocalDate.parse("2022-03-15"));
 
         List<Bid> bids1 = Arrays.asList(bid1, bid2, bid3);
         List<Bid> bids2 = Arrays.asList(bid4, bid5);
         List<Bid> bids3 = Arrays.asList(bid6, bid7);
+        List<Bid> bids4 = Arrays.asList(bid8);
 
         List<Image> images1 = Arrays.asList(image1, image2, image3, image4);
         List<Image> images2 = Arrays.asList(image5, image6, image7);
+        List<Image> images3 = Arrays.asList(image9, image10);
 
         List<Comment> comments1 = Arrays.asList(comment1, comment2, comment3);
         List<Comment> comments2 = Arrays.asList(comment4, comment5);
         List<Comment> comments3 = Arrays.asList(comment6);
+        List<Comment> comments4 = Arrays.asList(comment7);
 
         user2.setComments(Arrays.asList(comment1, comment2, comment3));
         user3.setComments(Arrays.asList(comment4, comment5));
-        user4.setComments(Arrays.asList(comment6));
+        user4.setComments(Arrays.asList(comment6, comment7));
 
 
         product3.setBids(bids1);
+
 
         product1.setImages(images1);
         product1.setComments(comments1);
@@ -114,14 +125,11 @@ class FunctionUtilsTest {
 
         product6.setBids(bids3);
 
-        List<Product> products = new ArrayList<>();
-        products.add(product1);
-        products.add(product2);
-        products.add(product3);
-        products.add(product4);
-        products.add(product5);
+        product7.setBids(bids4);
+        product7.setImages(images3);
+        product7.setComments(comments4);
 
-
+        List<Product> products = Arrays.asList(product1, product2, product3, product4, product5, product6, product7);
         marketplace.setProducts(products);
     }
 
@@ -151,12 +159,13 @@ class FunctionUtilsTest {
 
     //14. Top K users who uploaded negotiable product with highest comments
     @Test
-    public void test__usersWithHighestComments(){
+    public void test__usersWithHighestComments() {
         Map<User, List<Comment>> data = FunctionUtils.usersWithHighestComments.apply(marketplace, 2022);
-        assertEquals(data.get(user2),user2.getComments());
-        assertEquals(data.get(user3).size(),user3.getComments().size());
+        assertEquals(data.get(user2), user2.getComments());
+        assertEquals(data.get(user3).size(), user3.getComments().size());
 
     }
+
     //    3. Each product with highest bids
     @Test
     public void test3_productsWithHighestBids() {
@@ -177,5 +186,12 @@ class FunctionUtilsTest {
         assertEquals(expectedProduct.get(0), product.map(products -> products.get(0).getPrice()).orElse(0.0));
         assertEquals(expectedProduct.get(1), product.map(products -> products.get(1).getPrice()).orElse(0.0));
         assertEquals(2, product.map(List::size).orElse(0));
+    }
+
+    // 5. Top K users in particular location who uploaded product in Y category with high price
+    @Test
+    public void test5_getTopKUserInParticularLocationInYCatWithHighPrice() {
+        Optional<List<User>> users = FunctionUtils.getTopKUserInParticularLocationInYCatWithHighPrice.apply(marketplace, 2, 2022, "Fairfield", "Electronics");
+        System.out.println(users);
     }
 }
