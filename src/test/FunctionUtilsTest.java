@@ -43,6 +43,9 @@ class FunctionUtilsTest {
         Image image8 = new Image("product3/path8/image6.jpg");
         Image image9 = new Image("product7/path8/image6.jpg");
         Image image10 = new Image("product7/path9/image8.jpg");
+        Image image11 = new Image("product7/path9/image8.jpg");
+        Image image12 = new Image("product7/path9/image8.jpg");
+        Image image13 = new Image("product7/path9/image8.jpg");
 
 
         Category category1 = new Category(1L, "Electronics", "This is Electronics");
@@ -98,7 +101,7 @@ class FunctionUtilsTest {
 
         List<Image> images1 = Arrays.asList(image1, image2, image3, image4);
         List<Image> images2 = Arrays.asList(image5, image6, image7);
-        List<Image> images3 = Arrays.asList(image9, image10);
+        List<Image> images3 = Arrays.asList(image9, image10, image11, image12, image13);
 
         List<Comment> comments1 = Arrays.asList(comment1, comment2, comment3);
         List<Comment> comments2 = Arrays.asList(comment4, comment5);
@@ -185,6 +188,16 @@ class FunctionUtilsTest {
                 .apply(marketplace, 2, 2022, "Fairfield", "Electronics");
         assertEquals(users.get().get(0), user6);
         assertEquals(users.get().get(1), user2);
+    }
+
+    //   6. Top K users who uploaded product with maximum images
+    @Test
+    public void test6_getTopKUsersWhoUploadedProductWithMaximumImages() {
+        Optional<List<User>> users = FunctionUtils.getTopKUserWhoUploadedProductWithMaximumImages
+                .apply(marketplace, 2, 2022);
+        System.out.println(users);
+        assertEquals(users.get().get(0), user6);
+        assertEquals(users.get().get(1), user1);
     }
 
     //14. Top K users who uploaded negotiable product with highest comments

@@ -73,18 +73,45 @@ public class FunctionUtils {
             );
 
 
-    //    5. Top K users in particular location who uploaded product in Y category with high price
+    //    5. Top K users in particular city who uploaded product in Y category with high price
     public static HexaFunction<Marketplace, Integer, Integer, String, String, Optional<List<User>>>
             getTopKUserInParticularLocationInYCatWithHighPrice = (market, k, year, loc, cat) ->
             Optional.of(Stream.of(market)
                     .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
                     .sorted((p1, p2) -> (int) (p2.getPrice() - p1.getPrice()))
+                    .filter(p -> p.getAddedDate().getYear() == year)
                     .filter(p -> p.getCategory().getName().equals(cat))
                     .map(Product::getUser).toList()
                     .stream().filter(u -> u.getCity().equals(loc))
                     .limit(k)
                     .collect(toList()));
 
+
+    //   6. Top K users who uploaded product with maximum images
+    public static TriFunction<Marketplace, Integer, Integer, Optional<List<User>>> getTopKUserWhoUploadedProductWithMaximumImages
+            = (market, k, year) -> Optional.of(Stream.of(market)
+            .flatMap(m -> m.getProducts() != null ? m.getProducts().stream() : Stream.empty())
+            .filter(p -> p.getAddedDate().getYear() == year && p.getImages() != null)
+            .sorted((p1, p2) ->
+                    (int) (p2.getImages().stream().count() - p1.getImages().stream().count()))
+            .map(p -> p.getUser()).toList()
+            .stream().limit(2)
+            .collect(toList())
+    );
+
+
+    //13. Imageless product receiving most comments in particular day
+    public static BiFunction<Marketplace, Integer, List<Product>> popularImagelessProductsByComments = (marketplace, year) ->
+            Stream.of(marketplace)
+                    .flatMap(m -> m.getProducts().stream())
+                    .filter(p -> p.getImages() == null)
+                    .flatMap(p -> p.getComments() != null ? p.getComments().stream() : Stream.empty())
+                    .collect(Collectors.groupingBy(c -> c.getProduct()))
+                    .entrySet().stream()
+                    .sorted((e1, e2) -> (int) (e2.getValue().stream().count() - e1.getValue().stream().count()))
+                    .limit(10)
+                    .map(e -> e.getKey())
+                    .collect(Collectors.toList());
 
     //14. Top K users who uploaded negotiable product with highest comments
     public static BiFunction<Marketplace, Integer, Map<User, List<Comment>>> usersWithHighestComments = (marketplace, year) ->
@@ -95,20 +122,7 @@ public class FunctionUtils {
                     .collect(Collectors.groupingBy(c -> c.getUser()))
                     .entrySet()
                     .stream()
-                    .sorted((e1,e2)->(int)(e2.getValue().stream().count()-e1.getValue().stream().count()))
+                    .sorted((e1, e2) -> (int) (e2.getValue().stream().count() - e1.getValue().stream().count()))
                     .collect(Collectors.toMap(a -> a.getKey(), b -> b.getValue()));
-
-    //13. Imageless product receiving most comments in particular day
-    public static BiFunction<Marketplace,Integer,List<Product>> popularImagelessProductsByComments=(marketplace,year)->
-            Stream.of(marketplace)
-                    .flatMap(m->m.getProducts().stream())
-                    .filter(p->p.getImages()==null)
-                    .flatMap(p->p.getComments()!=null?p.getComments().stream():Stream.empty())
-                    .collect(Collectors.groupingBy(c->c.getProduct()))
-                    .entrySet().stream()
-                    .sorted((e1,e2)->(int)(e2.getValue().stream().count()-e1.getValue().stream().count()))
-                    .limit(10)
-                    .map(e->e.getKey())
-                    .collect(Collectors.toList());
 
 }
