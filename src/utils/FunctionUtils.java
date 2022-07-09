@@ -166,7 +166,7 @@ public class FunctionUtils {
                     .limit(limit)
                     .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
 
-    public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getKExpensiveBiddableProductAddedToWishList = (marketplace, k, year) ->
+    public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getTopKExpensiveBiddableProductAddedToWishList = (marketplace, k, year) ->
             Optional.of(Stream.of(marketplace)
                     .flatMap(m->m.getProducts().stream())
                     .filter(y -> y.getAddedDate().getYear() == year)

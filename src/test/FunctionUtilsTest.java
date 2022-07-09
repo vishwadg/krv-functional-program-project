@@ -265,8 +265,8 @@ class FunctionUtilsTest {
     }
 
     @Test
-    public void test_getKExpensiveBiddableProductAddedToWishList() {
-        Optional<List<Product>> products = FunctionUtils.getKExpensiveBiddableProductAddedToWishList.apply(marketplace, 2, 2022);
+    public void test_getTopKExpensiveBiddableProductAddedToWishList() {
+        Optional<List<Product>> products = FunctionUtils.getTopKExpensiveBiddableProductAddedToWishList.apply(marketplace, 2, 2022);
         assertEquals(2, products.map(List::size).orElse(0));
 
     }
