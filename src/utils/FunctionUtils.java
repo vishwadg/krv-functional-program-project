@@ -74,7 +74,7 @@ public class FunctionUtils {
             );
 
 
-    //  5. Top K users in particular city who uploaded product in Y category with high price
+    //  5.Top K users in particular city who uploaded product in Y category with high price
     public static HexaFunction<Marketplace, Integer, Integer, String, String, Optional<List<User>>>
             getTopKUserInParticularLocationInYCatWithHighPrice = (market, k, year, loc, cat) ->
             Optional.of(Stream.of(market)
@@ -166,6 +166,7 @@ public class FunctionUtils {
                     .limit(limit)
                     .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
 
+//    13. Most top K expensive biddable product added to wishlist
     public static TriFunction<Marketplace, Integer, Integer, Optional<List<Product>>> getTopKExpensiveBiddableProductAddedToWishList = (marketplace, k, year) ->
             Optional.of(Stream.of(marketplace)
                     .flatMap(m->m.getProducts().stream())
@@ -180,7 +181,7 @@ public class FunctionUtils {
                     .limit(k)
                     .collect(Collectors.toList()));
 
-
+//   14. Top K bidders in particular category in particular Year
     public static QuadFunction<Marketplace, Category, Integer, Integer, Optional<List<User>>> getTopKBiddersInParticularCategoryInParticularYear = (marketplace, category, k, year) ->
             Optional.of(Stream.of(marketplace)
                     .flatMap(p->p.getProducts().stream())
