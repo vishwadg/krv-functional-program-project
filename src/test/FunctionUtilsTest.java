@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class FunctionUtilsTest {
+public class FunctionUtilsTest {
 
 //    private Marketplace marketplace;
 //    private User user1, user2, user3, user4, user5, user6;
@@ -25,6 +25,7 @@ class FunctionUtilsTest {
 //    private Category category1, category2, category3, category4, category5, category6;
 
     @BeforeEach
+
     void setUp() {
 
 //        marketplace = new Marketplace("KRV MarketPlace", "Fairfield", "12345");
@@ -149,11 +150,6 @@ class FunctionUtilsTest {
 //        List<Product> products = Arrays.asList(product1, product2, product3, product4, product5, product6, product7);
 //        marketplace.setProducts(products);
     }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     //    Top K list of Users with maximum comments (with timeframe)
     @Test
     public void test1_topKListOfUsersWithComments() {
@@ -267,14 +263,14 @@ class FunctionUtilsTest {
         assertEquals(data.get(KRVData.user1).size(), 2);
     }
 
-    //    13. Most top K expensive biddable product added to wishlist
+    // 13. Most top K expensive biddable product added to wishlist
     @Test
     public void test_getTopKExpensiveBiddableProductAddedToWishList() {
         Optional<List<Product>> products = FunctionUtils.getTopKExpensiveBiddableProductAddedToWishList.apply(KRVData.marketplace, 2, 2022);
         assertEquals(2, products.map(List::size).orElse(0));
     }
 
-    //   14. Top K bidders in particular category in particular Year
+    // 14. Top K bidders in particular category in particular Year
     @Test
     public void test_getTopKBiddersInParticularCategoryInParticularYear() {
         Optional<List<User>> users = FunctionUtils.getTopKBiddersInParticularCategoryInParticularYear.apply(KRVData.marketplace, KRVData.category3, 2, 2022);
