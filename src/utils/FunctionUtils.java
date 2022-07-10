@@ -150,7 +150,7 @@ public class FunctionUtils {
 
     // 11. Users Product with at least K Comments
     public static TriFunction<Marketplace, Integer, Integer, Map<User, List<Comment>>> usersProductsWithAtLeastKComments = (marketplace, year, minCommentCount) ->
-            totalCommentsOnUsersProduct.apply(marketplace, year)
+            FunctionUtils.totalCommentsOnUsersProduct.apply(marketplace, year)
                     .entrySet().stream()
                     .filter(e -> e.getValue().stream().count() >= minCommentCount)
                     .collect(Collectors.toMap(e1 -> e1.getKey(), e2 -> e2.getValue()));

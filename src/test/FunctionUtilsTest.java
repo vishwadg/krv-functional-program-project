@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class FunctionUtilsTest {
+public class FunctionUtilsTest {
 
     private Marketplace marketplace;
     private User user1, user2, user3, user4, user5, user6;
@@ -23,7 +23,7 @@ class FunctionUtilsTest {
 
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         marketplace = new Marketplace("KRV MarketPlace", "Fairfield", "12345");
 
         user1 = new User(1l, "Jhon", "Doe", "jhondoe@gmail.com", "USA", "IA", "Fairfield", 52557, 32.123, 12.098);
@@ -146,11 +146,6 @@ class FunctionUtilsTest {
         List<Product> products = Arrays.asList(product1, product2, product3, product4, product5, product6, product7);
         marketplace.setProducts(products);
     }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     //    Top K list of Users with maximum comments (with timeframe)
     @Test
     public void test1_topKListOfUsersWithComments() {
@@ -252,7 +247,7 @@ class FunctionUtilsTest {
     @Test
     public void test__usersProductsWithAtLeastKComments() {
         Map<User, List<Comment>> data = FunctionUtils.usersProductsWithAtLeastKComments.apply(marketplace, 2022, 3);
-        data.entrySet().stream().forEach(e -> {
+        data.entrySet().forEach(e -> {
             assertFalse(e.getValue().size() < 3);
         });
     }
