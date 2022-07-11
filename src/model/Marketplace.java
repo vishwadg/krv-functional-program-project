@@ -48,4 +48,14 @@ public class Marketplace {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
+    @Override
+    public String toString() {
+        return "Marketplace{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", registrationId='" + registrationId + '\'' +
+                ", products=" + products +
+                '}';
+    }
 }

@@ -59,4 +59,15 @@ public class Bid {
     public Bid getCurrent() {
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Bid{" +
+                "id=" + id +
+                ", bidValue=" + bidValue +
+                ", user=" + user +
+                ", product=" + product +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

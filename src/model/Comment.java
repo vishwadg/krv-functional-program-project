@@ -56,4 +56,13 @@ public class Comment {
         this.content = content;
     }
 
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", product=" + product +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
