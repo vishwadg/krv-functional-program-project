@@ -1,4 +1,6 @@
 FROM openjdk
 WORKDIR /app
 COPY . .
-CMD ["/bin/sh"]
+WORKDIR /app/src
+CMD ["javac", "Main.java"]
+CMD ["java", "Main"]
