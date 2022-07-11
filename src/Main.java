@@ -67,22 +67,61 @@ public class Main {
                     break;
 
                 case "4":
-                    Optional<List<Product>> products1 = FunctionUtils.getKTopExpensiveBiddableProduct.apply(KRVData.marketplace, 2, 2022);
-                    for (Product product : products1.get()) {
-                        System.out.println(product);
+                    System.out.println("Please enter top value");
+                    uTopInput = uScan.nextInt();
+                    System.out.println("Please enter year value(eg.2022)");
+                    uYearInt = uScan.nextInt();
+                    if (uTopInput < 1) {
+                        System.out.println("Input is not valid");
+                    } else {
+                        Optional<List<Product>> products1 = FunctionUtils.getKTopExpensiveBiddableProduct.apply(KRVData.marketplace, uTopInput, uYearInt);
+                        for (Product product : products1.get()) {
+                            System.out.println(product);
+                        }
                     }
                     break;
 
                 case "5":
-                    Optional<List<User>> users1 = FunctionUtils.getTopKUserInParticularLocationInYCatWithHighPrice.apply(KRVData.marketplace, 2, 2022, "Fairfield", "Electronics");
+                    System.out.println("Please enter top value");
+                    uTopInput = uScan.nextInt();
+                    System.out.println("Please enter year value(eg.2022)");
+                    uYearInt = uScan.nextInt();
+                    if (uTopInput < 1) {
+                        System.out.println("Input is not valid");
+                    } else {
+                        Optional<List<User>> users1 = FunctionUtils.getTopKUserInParticularLocationInYCatWithHighPrice.apply(KRVData.marketplace, uTopInput, uYearInt, "Fairfield", "Electronics");
+                        for (User user : users1.get()) {
+                            System.out.println(user);
+                        }
+                    }
                     break;
 
                 case "6":
-                    Optional<List<User>> users2 = FunctionUtils.getTopKUserWhoUploadedProductWithMaximumImages.apply(KRVData.marketplace, 2, 2022);
+                    System.out.println("Please enter top value");
+                    uTopInput = uScan.nextInt();
+                    System.out.println("Please enter year value(eg.2022)");
+                    uYearInt = uScan.nextInt();
+                    if (uTopInput < 1) {
+                        System.out.println("Input is not valid");
+                    } else {
+                        Optional<List<User>> users2 = FunctionUtils.getTopKUserWhoUploadedProductWithMaximumImages.apply(KRVData.marketplace, uTopInput, uYearInt);
+                        for (User user : users2.get()) {
+                            System.out.println(user);
+                        }
+                    }
                     break;
 
                 case "7":
-                    Optional<List<User>> users3 = FunctionUtils.getTopKUSerWhoseProductExpiredOnYDateAddedToWishList.apply(KRVData.marketplace, 2, LocalDate.parse("2022-01-10"));
+                    System.out.println("Please enter top value");
+                    uTopInput = uScan.nextInt();
+                    if (uTopInput < 1) {
+                        System.out.println("Input is not valid");
+                    } else {
+                        Optional<List<User>> users3 = FunctionUtils.getTopKUSerWhoseProductExpiredOnYDateAddedToWishList.apply(KRVData.marketplace, uTopInput, LocalDate.parse("2022-01-10"));
+                        for (User user : users3.get()) {
+                            System.out.println(user);
+                        }
+                    }
                     break;
 
                 case "8":
