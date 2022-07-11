@@ -45,4 +45,14 @@ public class WishList {
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "WishList{" +
+                "id=" + id +
+                ", product=" + product +
+                ", user=" + user +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
