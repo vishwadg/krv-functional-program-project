@@ -3,10 +3,7 @@ import utils.FunctionUtils;
 import utils.KRVData;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -44,43 +41,68 @@ public class Main {
                     for (User us: users.get()){
                         System.out.println(us);
                     }
+                    break;
+
+                case "2":
+                    Optional<List<Product>> products = FunctionUtils.getKProductWithMaximumBids.apply(KRVData.marketplace, 2, 2022);
+
+                    for(Product product: products.get()) {
+                        System.out.println(product);
+                    }
+                    break;
+
+                case "3":
+                    Map<Product, Optional<Bid>> bids = FunctionUtils.productsWithHighestBids.apply(KRVData.marketplace, 2022);
+                    break;
+
+                case "4":
+                    Optional<List<Product>> products1 = FunctionUtils.getKTopExpensiveBiddableProduct.apply(KRVData.marketplace, 2, 2022);
+                    for(Product product: products1.get()) {
+                        System.out.println(product);
+                    }
+                    break;
+
+                case "5":
+                    Optional<List<User>> users1 = FunctionUtils.getTopKUserInParticularLocationInYCatWithHighPrice.apply(KRVData.marketplace, 2, 2022, "Fairfield", "Electronics");
+                    break;
+
+                case "6":
+                    Optional<List<User>> users2 = FunctionUtils.getTopKUserWhoUploadedProductWithMaximumImages.apply(KRVData.marketplace, 2, 2022);
+                    break;
+
+                case "7":
+                    Optional<List<User>> users3 = FunctionUtils.getTopKUSerWhoseProductExpiredOnYDateAddedToWishList.apply(KRVData.marketplace, 2, LocalDate.parse("2022-01-10"));
+                    break;
+
+                case "8":
+                    Map<User, List<Comment>> comments = FunctionUtils.totalCommentsOnUsersProduct.apply(KRVData.marketplace, 2022);
+                    break;
+
+                case "9":
+                    List<Product> products2 = FunctionUtils.popularImagelessProductsByComments.apply(KRVData.marketplace, 2022);
+                    break;
+
+                case "10":
+                    Map<User, List<Comment>> comments1 =  FunctionUtils.usersWithHighestComments.apply(KRVData.marketplace, 2022);
+                    break;
+
+                case "11":
+                    Map<User, List<Comment>> comments2 = FunctionUtils.usersProductsWithAtLeastKComments.apply(KRVData.marketplace, 2022, 3);
+                    break;
+
+                case "12":
+                    Map<User, List<Product>> userProduct = FunctionUtils.topKUsersWhoseProductIsSoldMaximum.apply(KRVData.marketplace, 2022, 3);
+                    break;
+
+                case "13":
+                    Optional<List<Product>> products3 = FunctionUtils.getTopKExpensiveBiddableProductAddedToWishList.apply(KRVData.marketplace, 3, 2022);
+                    break;
+
+                case "14":
+                    Optional<List<User>> users4 = FunctionUtils.getTopKBiddersInParticularCategoryInParticularYear.apply(KRVData.marketplace, KRVData.category1, 2, 2022);
+                    break;
 
             }
         }
-//
-//            Optional<List<User>> users = FunctionUtils.getKTopUserWithMaxComments.apply(marketplace, 2, 2022);
-//            if(users.isPresent()){
-//
-//                System.out.println(users.toString());
-//            }
-//
-////            FunctionUtils.getKProductWithMaximumBids.apply(marketplace, 2, 2022);
-////
-////            FunctionUtils.productsWithHighestBids.apply(marketplace, 2022);
-////
-////            FunctionUtils.getKTopExpensiveBiddableProduct.apply(marketplace, 2, 2022);
-////
-////            FunctionUtils.getTopKUserInParticularLocationInYCatWithHighPrice.apply(marketplace, 2, 2022, "Fairfield", "Electronics");
-////
-////            FunctionUtils.getTopKUserWhoUploadedProductWithMaximumImages.apply(marketplace, 2, 2022);
-////
-////            FunctionUtils.getTopKUSerWhoseProductExpiredOnYDateAddedToWishList.apply(marketplace, 2, LocalDate.parse("2022-01-10"));
-////
-////            FunctionUtils.totalCommentsOnUsersProduct.apply(marketplace, 2022);
-////
-////            FunctionUtils.popularImagelessProductsByComments.apply(marketplace, 2022);
-////
-////            FunctionUtils.usersWithHighestComments.apply(marketplace, 2022);
-////
-////            FunctionUtils.usersProductsWithAtLeastKComments.apply(marketplace, 2022, 3);
-////
-////            FunctionUtils.topKUsersWhoseProductIsSoldMaximum.apply(marketplace, 2022, 3);
-////
-////            FunctionUtils.getTopKExpensiveBiddableProductAddedToWishList.apply(marketplace, 3, 2022);
-////
-////            FunctionUtils.getTopKBiddersInParticularCategoryInParticularYear.apply(marketplace, category1, 2, 2022);
-//        }
-
-
     }
 }

@@ -26,7 +26,7 @@ public class FunctionUtilsTest {
 
     @BeforeEach
 
-    void setUp() {
+    public void setUp() {
 
 //        marketplace = new Marketplace("KRV MarketPlace", "Fairfield", "12345");
 //
